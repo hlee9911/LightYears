@@ -30,3 +30,5 @@ CopyLibToTarget(sfml-window ${LIGHT_YEARS_GAME_TARGET_NAME})
 CopyLibToTarget(sfml-system ${LIGHT_YEARS_GAME_TARGET_NAME})
 CopyLibToTarget(sfml-audio ${LIGHT_YEARS_GAME_TARGET_NAME})
 
+# to build this project, in the ternimal, run the following cmake commands:
+# cmake -S .. -B .
