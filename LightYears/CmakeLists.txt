@@ -1,0 +1,32 @@
+add_executable(${LIGHT_YEARS_GAME_TARGET_NAME}
+	${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/include/framework/Application.h
+	${CMAKE_CURRENT_SOURCE_DIR}/src/framework/Application.cpp
+)
+
+# add the include directory to the game project
+target_include_directories(${LIGHT_YEARS_GAME_TARGET_NAME} PUBLIC
+	${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+# link the SFML libraries to the game target
+target_link_libraries(${LIGHT_YEARS_GAME_TARGET_NAME} PUBLIC sfml-grahics)
+target_link_libraries(${LIGHT_YEARS_GAME_TARGET_NAME} PUBLIC sfml-window)
+target_link_libraries(${LIGHT_YEARS_GAME_TARGET_NAME} PUBLIC sfml-system)
+target_link_libraries(${LIGHT_YEARS_GAME_TARGET_NAME} PUBLIC sfml-audio)
+
+function(CopyLibToTarget LIB_NAME TARGET_NAME)
+	add_custom_command(TARGET ${TARGET_NAME}
+	POST_BUILD
+	COMMAND
+	${CMAKE_COMMAND} -E copy_if_different
+	$<TARGET_FILE:${LIB_NAME}> # generated build file
+	$<TARGET_FILE_DIR:${TARGET_NAME}>
+	)
+endfunction()
+
+CopyLibToTarget(sfml-graphics ${LIGHT_YEARS_GAME_TARGET_NAME})
+CopyLibToTarget(sfml-window ${LIGHT_YEARS_GAME_TARGET_NAME})
+CopyLibToTarget(sfml-system ${LIGHT_YEARS_GAME_TARGET_NAME})
+CopyLibToTarget(sfml-audio ${LIGHT_YEARS_GAME_TARGET_NAME})
+
