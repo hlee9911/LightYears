@@ -1,6 +1,5 @@
-#include <iostream>
-
 #include "framework/Application.h"
+#include "framework/Core.h"
 
 namespace ly
 {
@@ -47,6 +46,7 @@ namespace ly
 
 			// for debugging, print out the current framerate (acutal framerate)
 			// std::cout << "Ticking at framerate: " << 1.0f / frameDeltaTime << " FPS" << std::endl;
+			LOG("Ticking at framerate: %.2f FPS", 1.0f / frameDeltaTime);
 		}
 	}
 
