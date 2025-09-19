@@ -1,12 +1,14 @@
 #include "framework/Application.h"
 #include "framework/Core.h"
+#include "framework/World.h"
 
 namespace ly
 {
 	Application::Application() noexcept
 		: m_Window{ sf::VideoMode(1024, 1440), "Light Years" },
 		m_TargetFrameRate{ 60.0f },
-		m_TickClock{}
+		m_TickClock{},
+		m_CurrentWorld{ nullptr }
 	{
 
 	}
@@ -45,15 +47,20 @@ namespace ly
 			}
 
 			// for debugging, print out the current framerate (acutal framerate)
-			// std::cout << "Ticking at framerate: " << 1.0f / frameDeltaTime << " FPS" << std::endl;
-			LOG("Ticking at framerate: %.2f FPS", 1.0f / frameDeltaTime);
+			// LOG("Ticking at framerate: %.2f FPS", 1.0f / frameDeltaTime);
 		}
 	}
 
 	void Application::TickInternal(float deltaTime)
 	{
-		// std::cout << "Ticking at framerate: " << 1.0f / deltaTime << " FPS" << std::endl;
+		// call the application tick
 		Tick(deltaTime);
+
+		if (m_CurrentWorld)
+		{
+			// m_CurrentWorld->BeginPlayInternal();
+			m_CurrentWorld->TickInternal(deltaTime);
+		}
 	}
 
 	void Application::RenderInternal() noexcept
