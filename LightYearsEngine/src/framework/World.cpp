@@ -31,9 +31,27 @@ namespace ly
 		}
 		m_PendingActors.clear();
 
-		for (auto& actor : m_Actors)
+		//for (auto& actor : m_Actors)
+		//{
+		//	actor->Tick(deltaTime);
+		//}
+
+		// memory management part:
+		// doing instant deletion of actors while iterating through the list.
+		// good for small game, but for larger game, we might want to implement 
+		// a more sophisticated memory management system
+		for (auto iter = m_Actors.begin(); iter != m_Actors.end();)
 		{
-			actor->Tick(deltaTime);
+			if (iter->get()->IsPendingDestroy())
+			{
+				// removes the actor from the world's actor list
+				iter = m_Actors.erase(iter);
+			}
+			else
+			{
+				iter->get()->Tick(deltaTime);
+				++iter;
+			}
 		}
 
 		Tick(deltaTime);

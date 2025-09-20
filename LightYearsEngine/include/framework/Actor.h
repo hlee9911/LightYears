@@ -2,11 +2,13 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
+#include "framework/Object.h"
+
 namespace ly
 {
 	class World; // Forward declaration of World class
 
-	class Actor 
+	class Actor : public Object
 	{
 	public:
 		Actor(World* owningWorld) noexcept;

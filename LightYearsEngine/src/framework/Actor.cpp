@@ -12,7 +12,7 @@ namespace ly
 
 	Actor::~Actor() noexcept
 	{
-
+		LOG("Actor Destroyed");
 	}
 
 	void Actor::BeginPlayInternal()
