@@ -4,8 +4,8 @@
 
 namespace ly
 {
-	Application::Application() noexcept
-		: m_Window{ sf::VideoMode(1024, 1440), "Light Years" },
+	Application::Application(unsigned int windowWidth, unsigned int windowHeight, const std::string& title, sf::Uint32 style) noexcept
+		: m_Window{ sf::VideoMode(windowWidth, windowHeight), title, style },
 		m_TargetFrameRate{ 60.0f },
 		m_TickClock{},
 		m_CurrentWorld{ nullptr }
@@ -74,15 +74,19 @@ namespace ly
 
 	void Application::Render()
 	{
-		// to be overridden by derived classes
-		
-		// draw a green rectangle in the center of the window
-		sf::CircleShape rect{ 50 };
-		rect.setFillColor(sf::Color::Green);
-		rect.setOrigin(50, 50);
-		rect.setPosition(m_Window.getSize().x / 2.0f, m_Window.getSize().y / 2.0f);
+		//// to be overridden by derived classes
 
-		m_Window.draw(rect);
+		//// draw a green rectangle in the center of the window
+		//sf::CircleShape rect{ 50 };
+		//rect.setFillColor(sf::Color::Green);
+		//rect.setOrigin(50, 50);
+		//rect.setPosition(m_Window.getSize().x / 2.0f, m_Window.getSize().y / 2.0f);
+
+		//m_Window.draw(rect);
+		if (m_CurrentWorld)
+		{
+			m_CurrentWorld->Render(m_Window);
+		}
 	}
 
 	void Application::Tick(float deltaTime)

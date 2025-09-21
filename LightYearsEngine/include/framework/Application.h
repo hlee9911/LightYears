@@ -2,6 +2,7 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
+#include <string>
 #include <SFML/Graphics.hpp>
 
 #include "framework/Core.h"
@@ -13,7 +14,7 @@ namespace ly // Lightyear
 	class Application
 	{
 	public:
-		Application() noexcept;
+		Application(unsigned int windowWidth, unsigned int windowHeight, const std::string& title, sf::Uint32 style) noexcept;
 		void Run() noexcept;
 
 		template <typename WorldType>

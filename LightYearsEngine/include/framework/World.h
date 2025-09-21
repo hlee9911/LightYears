@@ -2,6 +2,8 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+#include <SFML/Graphics.hpp>
+
 #include "framework/Core.h"
 
 namespace ly
@@ -16,6 +18,7 @@ namespace ly
 
 		void BeginPlayInternal();
 		void TickInternal(float deltaTime);
+		void Render(sf::RenderWindow& window);
 
 		virtual ~World() noexcept;
 
