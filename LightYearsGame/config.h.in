@@ -1,0 +1,12 @@
+#pragma once
+#include <string>
+
+// preprocessor definitions for resource paths
+std::string GetResourceDir()
+{
+#ifdef NDEBUG // release build
+	return "@RESOURCE_FOLDER_NAME@/";
+#else // debug build
+	return "@RESOURCE_SRC_DIR@/";
+#endif
+}
