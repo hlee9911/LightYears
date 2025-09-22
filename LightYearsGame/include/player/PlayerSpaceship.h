@@ -1,0 +1,28 @@
+#pragma once
+#ifndef PLAYERSPACESHIP_H
+#define PLAYERSPACESHIP_H
+
+#include "spaceship/Spaceship.h"
+
+namespace ly
+{
+	class PlayerSpaceship : public Spaceship
+	{
+	public:
+		PlayerSpaceship(World* owningWorld, const std::string& texturePath = "SpaceShooterRedux/PNG/playerShip1_blue.png") noexcept;
+		virtual void Tick(float deltaTime) override;
+
+		void SetSpeed(float newSpeed) noexcept { m_Speed = newSpeed; }
+		float GetSpeed() const noexcept { return m_Speed; }
+
+	private:
+		void HandleInput();
+		void ConsumeInput(float deltaTime);
+	
+	private:
+		sf::Vector2f m_MoveInput;
+		float m_Speed;
+	};
+}
+
+#endif // PLAYERSPACESHIP_H

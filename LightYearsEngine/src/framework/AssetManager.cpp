@@ -26,7 +26,7 @@ namespace ly
 
 		// Load new texture if not found
 		shared<sf::Texture> newTexture{ new sf::Texture };
-		if (newTexture->loadFromFile(path))
+		if (newTexture->loadFromFile(m_RootDirectory + path))
 		{
 			m_LoadedTextureMap.insert({ path, newTexture });
 			return newTexture;
@@ -54,7 +54,13 @@ namespace ly
 		}
 	}
 
+	void AssetManager::SetAssetRootDirectory(const std::string& rootDir)
+	{
+		m_RootDirectory = rootDir;
+	}
+
 	AssetManager::AssetManager() noexcept
+		: m_RootDirectory{}
 	{
 
 	}

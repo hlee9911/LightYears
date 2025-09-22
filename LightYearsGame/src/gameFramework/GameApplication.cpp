@@ -1,6 +1,8 @@
 #include "gameFramework/GameApplication.h"
 #include "framework/World.h"
 #include "framework/Actor.h"
+#include "framework/AssetManager.h"
+#include "player/PlayerSpaceship.h"
 #include "config.h"
 
 ly::Application* GetApplication()
@@ -13,12 +15,15 @@ namespace ly
 	GameApplication::GameApplication() noexcept
 		: Application{ 600, 980, "Light Years", sf::Style::Titlebar | sf::Style::Close}
 	{
+		// Set the asset root directory for the AssetManager
+		AssetManager::Get().SetAssetRootDirectory(GetResourceDir());
+		
 		weak<World> newWorld = LoadWorld<World>();
 		newWorld.lock()->SpawnActor<Actor>();
-		m_ActorToDestroy = newWorld.lock()->SpawnActor<Actor>();
-		m_ActorToDestroy.lock()->SetTexture(GetResourceDir() + "SpaceShooterRedux/PNG/playerShip1_blue.png");
-		m_ActorToDestroy.lock()->SetActorLocation(sf::Vector2f{ 300.0f, 490.0f });
-		m_ActorToDestroy.lock()->SetActorRotation(90.0f);
+		m_TestPlayerSpaceship = newWorld.lock()->SpawnActor<PlayerSpaceship>();
+		// m_TestPlayerSpaceship.lock()->SetTexture(GetResourceDir() + "SpaceShooterRedux/PNG/playerShip1_blue.png");
+		m_TestPlayerSpaceship.lock()->SetActorLocation(sf::Vector2f{ 300.0f, 490.0f });
+		// m_TestPlayerSpaceship.lock()->SetActorRotation(90.0f);
 		m_Counter = 0.0f;
 	}
 
