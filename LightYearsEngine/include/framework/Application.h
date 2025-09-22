@@ -21,6 +21,7 @@ namespace ly // Lightyear
 		weak<World> LoadWorld(); // shouldnt supposed to have the ownership of the world
 
 	private:
+		// internal functions
 		void TickInternal(float deltaTime);
 		void RenderInternal() noexcept;
 		
@@ -34,6 +35,8 @@ namespace ly // Lightyear
 		sf::Clock m_TickClock;
 
 		shared<World> m_CurrentWorld;
+		sf::Clock m_CleanCycleClock;
+		float m_CleanCycleInterval; // in seconds
 	};
 
 	template <typename WorldType>

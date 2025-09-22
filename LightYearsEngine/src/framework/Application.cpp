@@ -1,6 +1,7 @@
 #include "framework/Application.h"
 #include "framework/Core.h"
 #include "framework/World.h"
+#include "framework/AssetManager.h"
 
 namespace ly
 {
@@ -8,7 +9,9 @@ namespace ly
 		: m_Window{ sf::VideoMode(windowWidth, windowHeight), title, style },
 		m_TargetFrameRate{ 60.0f },
 		m_TickClock{},
-		m_CurrentWorld{ nullptr }
+		m_CurrentWorld{ nullptr },
+		m_CleanCycleClock{},
+		m_CleanCycleInterval{ 2.0f } // clean every 2 seconds
 	{
 
 	}
@@ -58,8 +61,14 @@ namespace ly
 
 		if (m_CurrentWorld)
 		{
-			// m_CurrentWorld->BeginPlayInternal();
 			m_CurrentWorld->TickInternal(deltaTime);
+		}
+
+		// perform asset manager clean cycle every interval seconds
+		if (m_CleanCycleClock.getElapsedTime().asSeconds() >= m_CleanCycleInterval)
+		{
+			m_CleanCycleClock.restart();
+			AssetManager::Get().CleanCycle();
 		}
 	}
 

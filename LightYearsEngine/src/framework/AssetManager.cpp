@@ -37,6 +37,23 @@ namespace ly
 		return shared<sf::Texture>{ nullptr };
 	}
 
+	void AssetManager::CleanCycle()
+	{
+		// Remove unused textures from the map
+		for (auto iter = m_LoadedTextureMap.begin(); iter != m_LoadedTextureMap.end();)
+		{
+			if (iter->second.unique()) // only held by the map
+			{
+				LOG("Cleaning texture: %s", iter->first.c_str());
+				iter = m_LoadedTextureMap.erase(iter);
+			}
+			else // still used somewhere else
+			{
+				++iter;
+			}
+		}
+	}
+
 	AssetManager::AssetManager() noexcept
 	{
 
