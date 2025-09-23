@@ -2,6 +2,7 @@
 #include "framework/Core.h"
 #include "framework/AssetManager.h"
 #include "framework/MathUtility.h"
+#include "framework/World.h"
 
 namespace ly
 {
@@ -115,6 +116,11 @@ namespace ly
 	sf::Vector2f Actor::GetActorRightDirection() const
 	{
 		return RotationToVector(GetActorRotation() + 90.0f);
+	}
+
+	sf::Vector2u Actor::GetWindowSize() const noexcept
+	{
+		return m_OwningWorld->GetWorldSize();
 	}
 
 	// make the pivot point the center of the sprite

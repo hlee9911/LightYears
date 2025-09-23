@@ -20,6 +20,8 @@ namespace ly // Lightyear
 		template <typename WorldType>
 		weak<World> LoadWorld(); // shouldnt supposed to have the ownership of the world
 
+		sf::Vector2u GetWindowSize() const noexcept { return m_Window.getSize(); }
+
 	private:
 		// internal functions
 		void TickInternal(float deltaTime);

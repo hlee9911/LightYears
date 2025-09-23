@@ -1,6 +1,7 @@
 #include "framework/World.h"
 #include "framework/Core.h"
 #include "framework/Actor.h"
+#include "framework/Application.h"
 
 namespace ly
 {
@@ -68,6 +69,11 @@ namespace ly
 	World::~World() noexcept
 	{
 
+	}
+
+	sf::Vector2u World::GetWorldSize() const noexcept
+	{
+		return m_OwningApp->GetWindowSize();
 	}
 
 	void World::BeginPlay()

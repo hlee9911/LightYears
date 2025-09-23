@@ -25,6 +25,8 @@ namespace ly
 		template<typename ActorType>
 		weak<ActorType> SpawnActor();
 
+		sf::Vector2u GetWorldSize() const noexcept;
+
 	private:
 		void BeginPlay();
 		void Tick(float deltaTime);
