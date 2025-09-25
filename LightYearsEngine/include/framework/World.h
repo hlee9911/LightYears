@@ -22,8 +22,8 @@ namespace ly
 
 		virtual ~World() noexcept;
 
-		template<typename ActorType>
-		weak<ActorType> SpawnActor();
+		template<typename ActorType, typename... Args>
+		weak<ActorType> SpawnActor(Args... args);
 
 		sf::Vector2u GetWorldSize() const noexcept;
 
@@ -39,10 +39,10 @@ namespace ly
 		List<shared<Actor>> m_PendingActors; // actors to be added next frame
  	};
 
-	template<typename ActorType>
-	weak<ActorType> World::SpawnActor()
+	template<typename ActorType, typename... Args>
+	weak<ActorType> World::SpawnActor(Args... args)
 	{
-		shared<ActorType> newActor{ new ActorType{this} };
+		shared<ActorType> newActor{ new ActorType(this, args...) };
 		m_PendingActors.push_back(newActor);
 		return newActor;
 	}

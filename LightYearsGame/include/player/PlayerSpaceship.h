@@ -6,6 +6,7 @@
 
 namespace ly
 {
+	class BulletShooter;
 	class PlayerSpaceship : public Spaceship
 	{
 	public:
@@ -14,6 +15,8 @@ namespace ly
 
 		void SetSpeed(float newSpeed) noexcept { m_Speed = newSpeed; }
 		float GetSpeed() const noexcept { return m_Speed; }
+
+		virtual void Shoot() override;
 
 	private:
 		void HandleInput();
@@ -24,6 +27,8 @@ namespace ly
 	private:
 		sf::Vector2f m_MoveInput;
 		float m_Speed;
+
+		unique<BulletShooter> m_Shooter;
 	};
 }
 

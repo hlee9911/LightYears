@@ -110,12 +110,12 @@ namespace ly
 
 	sf::Vector2f Actor::GetActorForwardDirection() const
 	{
-		return RotationToVector(GetActorRotation());
+		return RotationToVector(GetActorRotation() + 270.0f);
 	}
 
 	sf::Vector2f Actor::GetActorRightDirection() const
 	{
-		return RotationToVector(GetActorRotation() + 90.0f);
+		return RotationToVector(GetActorRotation());
 	}
 
 	sf::Vector2u Actor::GetWindowSize() const noexcept

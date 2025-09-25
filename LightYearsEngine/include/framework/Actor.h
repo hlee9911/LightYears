@@ -42,6 +42,8 @@ namespace ly
 
 		sf::Vector2u GetWindowSize() const noexcept;
 
+		World* GetWorld() const noexcept { return m_OwningWorld; }
+
 	private:
 		void CenterPivot();
 

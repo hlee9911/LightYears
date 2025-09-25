@@ -17,6 +17,8 @@ namespace ly
 		void SetVelocity(const sf::Vector2f& newVel) noexcept;
 		sf::Vector2f GetVelocity() const noexcept { return m_Velocity; }
 
+		virtual void Shoot();
+
 	private:
 		sf::Vector2f m_Velocity;
 	};

@@ -1,5 +1,6 @@
 #include "player/PlayerSpaceship.h"
 #include "framework/MathUtility.h"
+#include "weapon/BulletShooter.h"
 
 #include <SFML/System.hpp>
 
@@ -8,7 +9,8 @@ namespace ly
 	PlayerSpaceship::PlayerSpaceship(World* owningWorld, const std::string& texturePath) noexcept
 		: Spaceship{ owningWorld, texturePath },
 		m_MoveInput{},
-		m_Speed{ 500.0f }
+		m_Speed{ 500.0f },
+		m_Shooter{ new BulletShooter{this, 0.1f} }
 	{
 		
 	}
@@ -19,6 +21,14 @@ namespace ly
 
 		HandleInput();
 		ConsumeInput(deltaTime);
+	}
+
+	void PlayerSpaceship::Shoot()
+	{
+		if (m_Shooter)
+		{
+			m_Shooter->Shoot();
+		}
 	}
 
 	void PlayerSpaceship::HandleInput()
@@ -40,8 +50,14 @@ namespace ly
 		{
 			m_MoveInput.x = 1.0f;
 		}
+
 		ClampInputOnEdge();
 		NormalizeInput();
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+		{
+			Shoot();
+		}
 	}
 
 	void PlayerSpaceship::NormalizeInput()
