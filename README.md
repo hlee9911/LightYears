@@ -1,5 +1,5 @@
 # LightYears
-A 2D bullet-hell scrolling shooter spaceship fighting game made with **C++**, **SFML**, and **CMake**.
+A 2D bullet-hell scrolling shooter spaceship fighting game made with **C++**, **SFML**, **CMake**, and **Box2D**.
 
 ---
 
