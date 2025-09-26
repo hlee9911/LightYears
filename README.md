@@ -14,6 +14,7 @@ A 2D bullet-hell scrolling shooter spaceship fighting game made with **C++**, **
 ..\_deps\sfml-build\lib\Debug\sfml-system-d.lib
 ..\_deps\sfml-build\lib\Debug\sfml-audio-d.lib
 ..\_deps\sfml-build\lib\Debug\sfml-graphics-d.lib
+..\_deps\box2d-build\bin\Debug\box2d.lib
 kernel32.lib
 user32.lib
 gdi32.lib
