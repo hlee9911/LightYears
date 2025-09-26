@@ -26,6 +26,7 @@ namespace ly
 		weak<ActorType> SpawnActor(Args... args);
 
 		sf::Vector2u GetWorldSize() const noexcept;
+		void CleanCycle();
 
 	private:
 		void BeginPlay();

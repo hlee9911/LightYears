@@ -69,6 +69,12 @@ namespace ly
 		{
 			m_CleanCycleClock.restart();
 			AssetManager::Get().CleanCycle();
+			// make sure the world also cleans up its actors
+			// periodically to avoid accessing the memory frequently
+			if (m_CurrentWorld)
+			{
+				m_CurrentWorld->CleanCycle();
+			}
 		}
 	}
 

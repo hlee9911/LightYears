@@ -17,7 +17,7 @@ namespace ly
 
 	Actor::~Actor() noexcept
 	{
-		// LOG("Actor Destroyed");
+		LOG("Actor Destroyed");
 	}
 
 	void Actor::BeginPlayInternal()
@@ -118,9 +118,32 @@ namespace ly
 		return RotationToVector(GetActorRotation());
 	}
 
+	sf::FloatRect Actor::GetActorGlobalBounds() const
+	{
+		return m_Sprite.getGlobalBounds();
+	}
+
 	sf::Vector2u Actor::GetWindowSize() const noexcept
 	{
 		return m_OwningWorld->GetWorldSize();
+	}
+
+	bool Actor::IsActorOutOfWindowsBounds() const
+	{
+		float windowWidth = GetWorld()->GetWorldSize().x;
+		float windowHeight = GetWorld()->GetWorldSize().y;
+
+		float width = GetActorGlobalBounds().width;
+		float height = GetActorGlobalBounds().height;
+
+		sf::Vector2f actorPos = GetActorLocation();
+
+		if (actorPos.x < -width || actorPos.x > windowWidth + width ||
+			actorPos.y < -height || actorPos.y > windowHeight + height)
+		{
+			return true;
+		}
+		return false;
 	}
 
 	// make the pivot point the center of the sprite
