@@ -10,7 +10,7 @@ namespace ly
 		Object() noexcept;
 		virtual ~Object() noexcept;
 		
-		void Destroy();
+		virtual void Destroy();
 		bool IsPendingDestroy() const noexcept { return m_IsPendingDestroy; }
 
 	private:

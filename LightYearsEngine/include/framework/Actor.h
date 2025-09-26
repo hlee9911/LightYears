@@ -8,10 +8,11 @@
 #include "framework/Core.h"
 #include "framework/Object.h"
 
+class b2Body; // Forward declaration of Box2D body
+
 namespace ly
 {
 	class World; // Forward declaration of World class
-
 	class Actor : public Object
 	{
 	public:
@@ -23,6 +24,8 @@ namespace ly
 
 		virtual void BeginPlay();
 		virtual void Tick(float deltaTime);
+
+		virtual void Destroy() override;
 
 		void SetTexture(const std::string& texturePath);
 		void Render(sf::RenderWindow& window);
@@ -47,8 +50,17 @@ namespace ly
 
 		bool IsActorOutOfWindowsBounds() const;
 
+		void SetEnablePhysics(bool enable);
+		virtual void OnActorBeginOverlap(Actor* otherActor);
+		virtual void OnActorEndOverlap(Actor* otherActor);
+
 	private:
 		void CenterPivot();
+
+		void InitializePhysics();
+		void UnInitializePhysics();
+
+		void UpdatePhysicsBodyTransform();
 
 	private:
 		World* m_OwningWorld;
@@ -56,6 +68,9 @@ namespace ly
 	
 		sf::Sprite m_Sprite;
 		shared<sf::Texture> m_Texture;
+
+		b2Body* m_PhysicsBody; // Box2D body pointer
+		bool m_PhysicsEnabled;
 	};
 }
 

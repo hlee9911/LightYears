@@ -19,6 +19,8 @@ namespace ly
 
 		virtual void Shoot();
 
+		virtual void BeginPlay() override;
+
 	private:
 		sf::Vector2f m_Velocity;
 	};
