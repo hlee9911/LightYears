@@ -20,4 +20,14 @@ namespace ly
 	{
 		m_IsPendingDestroy = true;
 	}
+
+	weak<Object> Object::GetWeakRef() noexcept
+	{
+		return weak_from_this();
+	}
+
+	weak<const Object> Object::GetWeakRef() const noexcept
+	{
+		return weak_from_this();
+	}
 }

@@ -5,6 +5,7 @@
 #include <string>
 
 #include "framework/Actor.h"
+#include "gameplay/HealthComponent.h"
 
 namespace ly
 {
@@ -22,7 +23,11 @@ namespace ly
 		virtual void BeginPlay() override;
 
 	private:
+		void OnHealthChanged(float amt, float health, float maxHealth);
+
+	private:
 		sf::Vector2f m_Velocity;
+		HealthComponent m_HealthComp;
 	};
 }
 

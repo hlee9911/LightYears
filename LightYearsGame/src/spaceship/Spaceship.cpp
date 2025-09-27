@@ -1,10 +1,13 @@
 #include "spaceship/Spaceship.h"
 
+// #include <functional>
+
 namespace ly
 {
 	Spaceship::Spaceship(World* owningWorld, const std::string& texturePath) noexcept
 		: Actor{ owningWorld, texturePath },
-		m_Velocity{}
+		m_Velocity{},
+		m_HealthComp{ 100.0f, 100.0f }
 	{
 		
 	}
@@ -32,5 +35,21 @@ namespace ly
 		Actor::BeginPlay();
 		
 		SetEnablePhysics(true);
+
+		//float damage = -10.0f;
+		//// Example usage of lambda function, [] is the capture list. & means capture by reference, = means capture by value
+		//std::function<void(float)> func = [damage](float var)
+		//{
+		//	LOG("Stuff %f", var);
+		//};
+
+		//func(5.0f);
+
+		m_HealthComp.onHealthChanged.BindAction(GetWeakRef(), &Spaceship::OnHealthChanged);
+	}
+
+	void Spaceship::OnHealthChanged(float amt, float health, float maxHealth)
+	{
+
 	}
 }
