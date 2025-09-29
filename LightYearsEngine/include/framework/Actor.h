@@ -54,6 +54,15 @@ namespace ly
 		virtual void OnActorBeginOverlap(Actor* otherActor);
 		virtual void OnActorEndOverlap(Actor* otherActor);
 
+		static uint8 GetNeutralTeamID() noexcept { return neutralTeamID; }
+
+		void SetTeamID(uint8 newTeamID) noexcept { m_TeamID = newTeamID; }
+
+		uint8 GetTeamID() const noexcept { return m_TeamID; }
+		bool IsOtherHostile(Actor* other) const;
+
+		virtual void ApplyDamage(float damageAmt);
+
 	private:
 		void CenterPivot();
 
@@ -71,6 +80,10 @@ namespace ly
 
 		b2Body* m_PhysicsBody; // Box2D body pointer
 		bool m_PhysicsEnabled;
+
+		uint8 m_TeamID;
+
+		constexpr static uint8 neutralTeamID = 255;
 	};
 }
 

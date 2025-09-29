@@ -22,8 +22,12 @@ namespace ly
 
 		virtual void BeginPlay() override;
 
+		virtual void ApplyDamage(float damageAmt) override;
+
 	private:
-		void OnHealthChanged(float amt, float health, float maxHealth);
+		virtual void OnHealthChanged(float amt, float health, float maxHealth);
+		virtual void OnTakenDamage(float amt, float health, float maxHealth);
+		virtual void OnBlow();
 
 	private:
 		sf::Vector2f m_Velocity;

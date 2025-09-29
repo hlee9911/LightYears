@@ -36,20 +36,28 @@ namespace ly
 		
 		SetEnablePhysics(true);
 
-		//float damage = -10.0f;
-		//// Example usage of lambda function, [] is the capture list. & means capture by reference, = means capture by value
-		//std::function<void(float)> func = [damage](float var)
-		//{
-		//	LOG("Stuff %f", var);
-		//};
-
-		//func(5.0f);
-
 		m_HealthComp.onHealthChanged.BindAction(GetWeakRef(), &Spaceship::OnHealthChanged);
+		m_HealthComp.onTakenDamage.BindAction(GetWeakRef(), &Spaceship::OnTakenDamage);
+		m_HealthComp.onHealthEmpty.BindAction(GetWeakRef(), &Spaceship::OnBlow);
+	}
+
+	void Spaceship::ApplyDamage(float damageAmt)
+	{
+		m_HealthComp.ChangeHealth(-damageAmt);
 	}
 
 	void Spaceship::OnHealthChanged(float amt, float health, float maxHealth)
 	{
+		LOG("Spaceship Health Changed by %f, Current Health: %f/%f", amt, health, maxHealth);
+	}
 
+	void Spaceship::OnTakenDamage(float amt, float health, float maxHealth)
+	{
+
+	}
+
+	void Spaceship::OnBlow()
+	{
+		Destroy();
 	}
 }

@@ -15,12 +15,15 @@ namespace ly
 
 		void SetSpeed(float speed) noexcept { m_Speed = speed; }
 		void SetDamage(float damage) noexcept { m_Damage = damage; }
+		float GetDamage() const noexcept { return m_Damage; }
 
 		virtual void Tick(float deltaTime) override;
 		virtual void BeginPlay() override;
 	
 	private:
 		void Move(float deltaTime);
+
+		virtual void OnActorBeginOverlap(Actor* otherActor) override;
 
 	private:
 		Actor* m_Owner;

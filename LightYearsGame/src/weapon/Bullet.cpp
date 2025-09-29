@@ -8,7 +8,7 @@ namespace ly
 		m_Speed{ speed },
 		m_Damage{ damage }
 	{
-
+		SetTeamID(owner->GetTeamID()); // Inherit team ID from owner of the bullet
 	}
 
 	void Bullet::Tick(float deltaTime)
@@ -33,6 +33,16 @@ namespace ly
 	void Bullet::Move(float deltaTime)
 	{
 		AddActorLocationOffset(GetActorForwardDirection() * m_Speed * deltaTime);
+	}
+
+	void Bullet::OnActorBeginOverlap(Actor* otherActor)
+	{
+		if (IsOtherHostile(otherActor))
+		{
+			// Apply damage to the other actor if it has a health component
+			otherActor->ApplyDamage(GetDamage());
+			Destroy(); // Destroy the bullet after hitting a hostile actor
+		}
 	}
 
 }

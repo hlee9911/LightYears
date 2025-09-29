@@ -15,6 +15,8 @@ namespace ly
 		float GetMaxHealth() const noexcept { return m_MaxHealth; }
 
 		Delegate<float, float, float> onHealthChanged;
+		Delegate<float, float, float> onTakenDamage;
+		Delegate<> onHealthEmpty;
 
 	private:
 		void TakenDamange(float amt);

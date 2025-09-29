@@ -29,6 +29,7 @@ namespace ly
 		weak<Spaceship> testSpaceship = newWorld.lock()->SpawnActor<Spaceship>();
 		testSpaceship.lock()->SetTexture("SpaceShooterRedux/PNG/playerShip1_red.png");
 		testSpaceship.lock()->SetActorLocation(sf::Vector2f{ 100.0f, 50.0f });
+		testSpaceship.lock()->SetTeamID(2); // Enemy team ID is 2
 
 		m_Counter = 0.0f;
 	}
@@ -36,13 +37,13 @@ namespace ly
 	void GameApplication::Tick(float deltaTime)
 	{
 		m_Counter += deltaTime;
-		if (m_Counter >= 10.0f)
-		{
-			if (!m_TestPlayerSpaceship.expired())
-			{
-				m_TestPlayerSpaceship.lock()->Destroy();
-				// LOG("Actor marked for destruction");
-			}
-		}
+		//if (m_Counter >= 10.0f)
+		//{
+		//	if (!m_TestPlayerSpaceship.expired())
+		//	{
+		//		m_TestPlayerSpaceship.lock()->Destroy();
+		//		// LOG("Actor marked for destruction");
+		//	}
+		//}
 	}
 }

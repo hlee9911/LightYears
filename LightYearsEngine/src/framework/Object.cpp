@@ -18,6 +18,7 @@ namespace ly
 	// and we will actually destroy at the next tick of the world
 	void Object::Destroy()
 	{
+		onDestroyed.Broadcast(this); // notify everyone that this object is being destroyed
 		m_IsPendingDestroy = true;
 	}
 

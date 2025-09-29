@@ -15,7 +15,8 @@ namespace ly
 		m_Sprite{},
 		m_Texture{},
 		m_PhysicsBody{ nullptr },
-		m_PhysicsEnabled{ false }
+		m_PhysicsEnabled{ false },
+		m_TeamID{ GetNeutralTeamID() }
 	{
 		SetTexture(texturePath);
 	}
@@ -174,12 +175,26 @@ namespace ly
 
 	void Actor::OnActorBeginOverlap(Actor* otherActor)
 	{
-		LOG("Overlapped");
+		// LOG("Overlapped");
 	}
 
 	void Actor::OnActorEndOverlap(Actor* otherActor)
 	{
-		LOG("End Overlapped");
+		// LOG("End Overlapped");
+	}
+
+	bool Actor::IsOtherHostile(Actor* other) const
+	{
+		if (GetTeamID() == GetNeutralTeamID() || other->GetTeamID() == GetNeutralTeamID())
+		{
+			return false; // neutral teams are not hostile to anyone
+		}
+		return GetTeamID() != other->GetTeamID();
+	}
+
+	void Actor::ApplyDamage(float damageAmt)
+	{
+
 	}
 
 	// make the pivot point the center of the sprite

@@ -34,6 +34,8 @@ using Dictionary = std::unordered_map<keyType, valType, hasher>;
 template <typename T>
 using Set = std::unordered_set<T>;
 
+using uint8 = unsigned char;
+
 // Simple logging macro, ... means variadic arguments
 #define LOG(M, ...) printf("[LOG] " M "\n", ##__VA_ARGS__)
 #define WARN(M, ...) printf("[WARN] " M "\n", ##__VA_ARGS__)
