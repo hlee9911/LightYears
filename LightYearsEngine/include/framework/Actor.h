@@ -46,7 +46,8 @@ namespace ly
 
 		sf::Vector2u GetWindowSize() const noexcept;
 
-		World* GetWorld() const noexcept { return m_OwningWorld; }
+		const World* GetWorld() const noexcept { return m_OwningWorld; }
+		World* GetWorld() noexcept { return m_OwningWorld; }
 
 		bool IsActorOutOfWindowsBounds() const;
 
@@ -62,6 +63,9 @@ namespace ly
 		bool IsOtherHostile(Actor* other) const;
 
 		virtual void ApplyDamage(float damageAmt);
+
+		sf::Sprite& GetSprite() noexcept { return m_Sprite; }
+		const sf::Sprite& GetSprite() const noexcept { return m_Sprite; }
 
 	private:
 		void CenterPivot();
