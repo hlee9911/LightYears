@@ -1,5 +1,6 @@
 #include "spaceship/Spaceship.h"
 #include "framework/MathUtility.h"
+#include "VFX/Explosion.h"
 
 // #include <functional>
 
@@ -81,7 +82,7 @@ namespace ly
 
 	void Spaceship::OnHealthChanged(float amt, float health, float maxHealth)
 	{
-		LOG("Spaceship Health Changed by %f, Current Health: %f/%f", amt, health, maxHealth);
+		LOG("Spaceship Health Changed by %f, Current Health: %f / %f", amt, health, maxHealth);
 	}
 
 	void Spaceship::OnTakenDamage(float amt, float health, float maxHealth)
@@ -91,6 +92,9 @@ namespace ly
 
 	void Spaceship::OnBlow()
 	{
+		Explosion* exp = new Explosion();
+		exp->SpawnExplosion(GetWorld(), GetActorLocation());
 		Destroy();
+		delete exp;
 	}
 }

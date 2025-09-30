@@ -21,7 +21,7 @@ namespace ly
 	private:
 		void TakenDamange(float amt);
 		void HealthEmpty();
-		void HealthRegen(float amt);
+		// void HealthRegen(float amt);
 
 	private:
 		float m_CurrentHealth;
