@@ -142,7 +142,7 @@ namespace ly
 		return m_OwningWorld->GetWorldSize();
 	}
 
-	bool Actor::IsActorOutOfWindowsBounds() const
+	bool Actor::IsActorOutOfWindowsBounds(float allowance) const
 	{
 		float windowWidth = GetWorld()->GetWorldSize().x;
 		float windowHeight = GetWorld()->GetWorldSize().y;
@@ -152,8 +152,8 @@ namespace ly
 
 		sf::Vector2f actorPos = GetActorLocation();
 
-		if (actorPos.x < -width || actorPos.x > windowWidth + width ||
-			actorPos.y < -height || actorPos.y > windowHeight + height)
+		if (actorPos.x < -width - allowance || actorPos.x > windowWidth + width + allowance ||
+			actorPos.y < -height - allowance || actorPos.y > windowHeight + height + allowance)
 		{
 			return true;
 		}
@@ -185,6 +185,8 @@ namespace ly
 
 	bool Actor::IsOtherHostile(Actor* other) const
 	{
+		if (!other) return false;
+
 		if (GetTeamID() == GetNeutralTeamID() || other->GetTeamID() == GetNeutralTeamID())
 		{
 			return false; // neutral teams are not hostile to anyone

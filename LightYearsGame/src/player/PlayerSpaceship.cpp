@@ -51,6 +51,17 @@ namespace ly
 			m_MoveInput.x = 1.0f;
 		}
 
+		// if left shift is held, slow down the speed
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) &&
+		    (m_MoveInput.x != 0.0f || m_MoveInput.y != 0.0f))
+		{
+			m_Speed = 200.0f;
+		}
+		else
+		{
+			m_Speed = 500.0f;
+		}
+
 		ClampInputOnEdge();
 		NormalizeInput();
 
