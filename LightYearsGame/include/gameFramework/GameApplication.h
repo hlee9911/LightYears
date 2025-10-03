@@ -7,18 +7,12 @@
 
 namespace ly
 {
-	class Actor;
-	class PlayerSpaceship;
 	class GameApplication : public Application
 	{
 	public:
 		GameApplication() noexcept;
 
-		virtual void Tick(float deltaTime) override;
-	
-	private:
-		float m_Counter;
-		weak<PlayerSpaceship> m_TestPlayerSpaceship;
+		// virtual void Tick(float deltaTime) override;
 	};
 }
 

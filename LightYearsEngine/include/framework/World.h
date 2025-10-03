@@ -5,13 +5,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "framework/Core.h"
+#include "framework/Object.h"
 
 namespace ly
 {
 	class Actor; // forward declaration
 	class Application; // forward declaration
 
-	class World 
+	class World : public Object
 	{
 	public:
 		World(Application* owningApp) noexcept;
@@ -29,8 +30,8 @@ namespace ly
 		void CleanCycle();
 
 	private:
-		void BeginPlay();
-		void Tick(float deltaTime);
+		virtual void BeginPlay();
+		virtual void Tick(float deltaTime);
 
 	private:
 		Application* m_OwningApp;

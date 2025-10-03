@@ -18,7 +18,7 @@ namespace ly // Lightyear
 		void Run() noexcept;
 
 		template <typename WorldType>
-		weak<World> LoadWorld(); // shouldnt supposed to have the ownership of the world
+		weak<WorldType> LoadWorld(); // shouldnt supposed to have the ownership of the world
 
 		sf::Vector2u GetWindowSize() const noexcept { return m_Window.getSize(); }
 
@@ -42,7 +42,7 @@ namespace ly // Lightyear
 	};
 
 	template <typename WorldType>
-	weak<World> Application::LoadWorld()
+	weak<WorldType> Application::LoadWorld()
 	{
 		shared<WorldType> newWorld{ new WorldType{this} };
 		m_CurrentWorld = newWorld;
