@@ -32,19 +32,23 @@ namespace ly
 	
 		// interfce for the settimer
 		template<typename ClassName>
-		void SetTimer(weak<Object> weakRef, void(ClassName::*callback)(), float duration, bool repeat = false)
+		unsigned int SetTimer(weak<Object> weakRef, void(ClassName::*callback)(), float duration, bool repeat = false)
 		{
-			m_Timers.push_back(Timer(weakRef, [=] {(static_cast<ClassName*>(weakRef.lock().get())->*callback)(); }, duration, repeat));
+			++s_TimerIndexCounter;
+			m_Timers.insert({ s_TimerIndexCounter, Timer(weakRef, [=] {(static_cast<ClassName*>(weakRef.lock().get())->*callback)(); }, duration, repeat) });
+			return s_TimerIndexCounter;
 		}
 
 		void UpdateTimer(float deltaTime);
+		void ClearTimer(unsigned int timerIndex);
 
 	protected:
 		TimerManager() noexcept;
 
 	private:
 		static unique<TimerManager> s_TimerManager;
-		List<Timer> m_Timers;
+		static unsigned int s_TimerIndexCounter;
+		Dictionary<unsigned int, Timer> m_Timers;
 	};
 }
 

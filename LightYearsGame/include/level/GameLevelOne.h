@@ -14,10 +14,11 @@ namespace ly
 	
 	private:
 		virtual void BeginPlay() override;
+		void TimerCallBack_Test();
 
 	private:
 		weak<PlayerSpaceship> m_TestPlayerSpaceship;
-		void TimerCallBack_Test();
+		unsigned int m_TimerIndex_Test;
 	};
 }
 
