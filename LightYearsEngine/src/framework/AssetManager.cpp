@@ -33,7 +33,7 @@ namespace ly
 		}
 
 		// if failed to load texture, return nullptr
-		LOG("Failed to load texture from path: %s", path.c_str());
+		ERROR("Failed to load texture from path: %s", path.c_str());
 		return shared<sf::Texture>{ nullptr };
 	}
 
