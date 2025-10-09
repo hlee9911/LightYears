@@ -3,6 +3,7 @@
 #define GAMELEVELONE_H
 
 #include "framework/World.h"
+#include "framework/TimerManager.h"
 
 namespace ly
 {
@@ -18,7 +19,7 @@ namespace ly
 
 	private:
 		weak<PlayerSpaceship> m_TestPlayerSpaceship;
-		unsigned int m_TimerIndex_Test;
+		TimerHandle m_TimerHandle_Test;
 	};
 }
 

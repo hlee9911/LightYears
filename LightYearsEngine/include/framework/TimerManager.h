@@ -9,6 +9,32 @@
 
 namespace ly
 {
+	struct TimerHandle
+	{
+	public:
+		TimerHandle() noexcept;
+		unsigned int GetTimerKey() const noexcept { return m_TimerKey; }
+
+	private:
+		static unsigned int GetNextTimerKey() noexcept { return ++s_TimerKeyCounter; }
+
+	private:
+		static unsigned int s_TimerKeyCounter;
+		unsigned int m_TimerKey;
+	};
+
+	struct TimerHandleHashFunction
+	{
+	public:
+		std::size_t operator()(const TimerHandle& timerHandle) const
+		{
+			return timerHandle.GetTimerKey();
+		}
+	};
+
+	// no need to put this inside the class 
+	bool operator==(const TimerHandle& lhs, const TimerHandle& rhs);
+
 	struct Timer
 	{
 	public:
@@ -32,23 +58,26 @@ namespace ly
 	
 		// interfce for the settimer
 		template<typename ClassName>
-		unsigned int SetTimer(weak<Object> weakRef, void(ClassName::*callback)(), float duration, bool repeat = false)
+		TimerHandle SetTimer(weak<Object> weakRef, void(ClassName::*callback)(), float duration, bool repeat = false)
 		{
-			++s_TimerIndexCounter;
-			m_Timers.insert({ s_TimerIndexCounter, Timer(weakRef, [=] {(static_cast<ClassName*>(weakRef.lock().get())->*callback)(); }, duration, repeat) });
-			return s_TimerIndexCounter;
+			TimerHandle newHandle{};
+			m_Timers.insert({ newHandle, Timer(weakRef, [=] {(static_cast<ClassName*>(weakRef.lock().get())->*callback)(); }, duration, repeat) });
+			return newHandle;
 		}
 
 		void UpdateTimer(float deltaTime);
-		void ClearTimer(unsigned int timerIndex);
+		void ClearTimer(TimerHandle timerHandle);
 
 	protected:
 		TimerManager() noexcept;
 
 	private:
 		static unique<TimerManager> s_TimerManager;
-		static unsigned int s_TimerIndexCounter;
-		Dictionary<unsigned int, Timer> m_Timers;
+		// static unsigned int s_TimerIndexCounter;
+
+		// hash table doesnt know how to hash key with custom struct
+		// so we need our custom hash function
+		Dictionary<TimerHandle, Timer, TimerHandleHashFunction> m_Timers;
 	};
 }
 

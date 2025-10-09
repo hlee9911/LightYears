@@ -2,6 +2,16 @@
 
 namespace ly
 {
+    /////////////////////////// TimerHandle part /////////////////////////
+    
+    unsigned int TimerHandle::s_TimerKeyCounter{ 0 };
+    
+    TimerHandle::TimerHandle() noexcept
+        : m_TimerKey{GetNextTimerKey()}
+    {
+
+    }
+    
     /////////////////////////// Timer part /////////////////////////
 
     Timer::Timer(weak<Object> weakRef, std::function<void()> callback, float duration, bool repeat) noexcept
@@ -49,7 +59,7 @@ namespace ly
     /////////////////////// TimerManager part ////////////////////////
 
     unique<TimerManager> TimerManager::s_TimerManager{ nullptr };
-    unsigned int TimerManager::s_TimerIndexCounter{ 0 };
+    // unsigned int TimerManager::s_TimerIndexCounter{ 0 };
 
     TimerManager& TimerManager::Get()
     {
@@ -76,9 +86,14 @@ namespace ly
         }
     }
 
-    void TimerManager::ClearTimer(unsigned int timerIndex)
+    bool operator==(const TimerHandle& lhs, const TimerHandle& rhs)
     {
-        auto iter = m_Timers.find(timerIndex);
+        return lhs.GetTimerKey() == rhs.GetTimerKey();
+    }
+
+    void TimerManager::ClearTimer(TimerHandle timerHandle)
+    {
+        auto iter = m_Timers.find(timerHandle);
         if (iter != m_Timers.end())
         {
             iter->second.SetExpired();
