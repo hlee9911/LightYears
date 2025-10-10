@@ -9,8 +9,9 @@
 
 namespace ly
 {
-	class Actor; // forward declaration
-	class Application; // forward declaration
+	class Actor;
+	class Application;
+	class GameStage;
 
 	class World : public Object
 	{
@@ -28,10 +29,15 @@ namespace ly
 
 		sf::Vector2u GetWorldSize() const noexcept;
 		void CleanCycle();
+		void AddStage(const shared<GameStage>& newStage);
 
 	private:
 		virtual void BeginPlay();
 		virtual void Tick(float deltaTime);
+
+		virtual void InitGameStages();
+		void NextGameStage();
+		virtual void AllGameStageFinished();
 
 	private:
 		Application* m_OwningApp;
@@ -39,6 +45,11 @@ namespace ly
 
 		List<shared<Actor>> m_Actors; // all actors in the world
 		List<shared<Actor>> m_PendingActors; // actors to be added next frame
+
+		// using shared pointer becuase the timer has to work with the weak references
+		// and only shared pointer has that
+		List<shared<GameStage>> m_GameStages; // list of game stages
+		int m_CurrentStageIndex;
  	};
 
 	template<typename ActorType, typename... Args>

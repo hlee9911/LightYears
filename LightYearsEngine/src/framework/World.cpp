@@ -2,6 +2,7 @@
 #include "framework/Core.h"
 #include "framework/Actor.h"
 #include "framework/Application.h"
+#include "gameplay/GameStage.h"
 
 namespace ly
 {
@@ -9,7 +10,9 @@ namespace ly
 		: m_OwningApp{ owningApp },
 		m_HasBegunPlay{ false },
 		m_Actors{},
-		m_PendingActors{}
+		m_PendingActors{},
+		m_GameStages{},
+		m_CurrentStageIndex{ -1 }
 	{
 
 	}
@@ -20,6 +23,8 @@ namespace ly
 		{
 			m_HasBegunPlay = true;
 			BeginPlay();
+			InitGameStages();
+			NextGameStage();
 		}
 	}
 
@@ -37,14 +42,15 @@ namespace ly
 		//	actor->Tick(deltaTime);
 		//}
 
-		// memory management part:
-		// doing instant deletion of actors while iterating through the list.
-		// good for small game, but for larger game, we might want to implement 
-		// a more sophisticated memory management system
 		for (auto iter = m_Actors.begin(); iter != m_Actors.end();)
 		{
 			iter->get()->TickInternal(deltaTime);
 			++iter;
+		}
+
+		if (m_CurrentStageIndex >= 0 && m_CurrentStageIndex < m_GameStages.size())
+		{
+			m_GameStages[m_CurrentStageIndex]->TickStage(deltaTime);
 		}
 
 		Tick(deltaTime);
@@ -68,7 +74,7 @@ namespace ly
 		return m_OwningApp->GetWindowSize();
 	}
 
-	// clean up actors that are pending destroy
+	// clean up actors and stages that are pending destroy
 	void World::CleanCycle()
 	{
 		// memory management part:
@@ -87,6 +93,24 @@ namespace ly
 				++iter;
 			}
 		}
+
+		// cleaning game stages part
+		for (auto iter = m_GameStages.begin(); iter != m_GameStages.end();)
+		{
+			if (iter->get()->IsStageFinished())
+			{
+				iter = m_GameStages.erase(iter);
+			}
+			else
+			{
+				++iter;
+			}
+		}
+	}
+
+	void World::AddStage(const shared<GameStage>& newStage)
+	{
+		m_GameStages.push_back(newStage);
 	}
 
 	void World::BeginPlay()
@@ -98,4 +122,30 @@ namespace ly
 	{
 		// LOG("Ticking at frame rate: %f", 1.0f / deltaTime);
 	}
+
+	void World::InitGameStages()
+	{
+
+	}
+
+	void World::NextGameStage()
+	{
+		++m_CurrentStageIndex;
+		if (m_CurrentStageIndex >= 0 && m_CurrentStageIndex < m_GameStages.size())
+		{
+			// bind the action to move onto the next stage when we invoke current stage event finished event
+			m_GameStages[m_CurrentStageIndex]->onStageFinished.BindAction(GetWeakRef(), &World::NextGameStage);
+			m_GameStages[m_CurrentStageIndex]->StartStage();
+		}
+		else
+		{
+			AllGameStageFinished();
+		}
+	}
+
+	void World::AllGameStageFinished()
+	{
+
+	}
+
 }
