@@ -15,7 +15,7 @@ namespace ly
 	
 	private:
 		virtual void BeginPlay() override;
-		void TimerCallBack_Test();
+		// void TimerCallBack_Test(); // for debugging purpose
 		virtual void InitGameStages() override;
 
 	private:
