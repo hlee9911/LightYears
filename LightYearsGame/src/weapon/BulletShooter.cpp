@@ -5,12 +5,14 @@
 
 namespace ly
 {
-	BulletShooter::BulletShooter(Actor* owner, float cooldownTime) noexcept
+	BulletShooter::BulletShooter(Actor* owner, float cooldownTime, const sf::Vector2f& localPositionOffset, float localRotationOffset) noexcept
 		: Shooter{ owner },
 		m_CooldownClock{},
-		m_CooldownTime{ cooldownTime }
+		m_CooldownTime{ cooldownTime },
+		m_LocalPositionOffset{ localPositionOffset },
+		m_LocalRotationOffset{ localRotationOffset }
 	{
-
+		
 	}
 
 	bool BulletShooter::CanShoot() const
@@ -29,10 +31,13 @@ namespace ly
 
 	void BulletShooter::ShootImpl()
 	{
+		sf::Vector2f ownerForwardDir = GetOwner()->GetActorForwardDirection();
+		sf::Vector2f ownerRightDir = GetOwner()->GetActorRightDirection();
+
 		m_CooldownClock.restart();
 		// LOG("Shooting!");
 		weak<Bullet> newBullet = GetOwner()->GetWorld()->SpawnActor<Bullet>(GetOwner(), "SpaceShooterRedux/PNG/Lasers/laserBlue01.png");
-		newBullet.lock()->SetActorLocation(GetOwner()->GetActorLocation() + GetOwner()->GetActorForwardDirection() * 50.0f);
-		newBullet.lock()->SetActorRotation(GetOwner()->GetActorRotation());
+		newBullet.lock()->SetActorLocation(GetOwner()->GetActorLocation() + ownerForwardDir * m_LocalPositionOffset.x + ownerRightDir * m_LocalPositionOffset.y);
+		newBullet.lock()->SetActorRotation(GetOwner()->GetActorRotation() + m_LocalRotationOffset);
 	}
 }

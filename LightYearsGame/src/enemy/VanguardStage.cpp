@@ -12,7 +12,7 @@ namespace ly
 		m_LeftSpawnLoc{ 0.0f, 0.0f },
 		m_RightSpawnLoc{ 0.0f, 0.0f },
 		m_SpawnLoc{ 0.0f, 0.0f },
-		m_RowsToSpawn{ 4 },
+		m_RowsToSpawn{ 2 },
 		m_RowSpawnCount{ 0 },
 		m_VanguardPerRow{ 5 },
 		m_CurrentRowVanguardCount{ 0 }
@@ -33,7 +33,7 @@ namespace ly
 	{
 		TimerManager::Get().ClearTimer(m_SpawnTimerHandle);
 		TimerManager::Get().ClearTimer(m_SwitchTimerHandle);
-		LOG("Stage Finished");
+		LOG("Vanguard Stage Finished");
 	}
 
 	void VanguardStage::SpawnVanguard()

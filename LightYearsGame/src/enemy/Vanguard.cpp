@@ -5,7 +5,7 @@ namespace ly
 {
 	Vanguard::Vanguard(World* owningWorld, const std::string& texturePath, const sf::Vector2f& velocity) noexcept
 		: EnemySpaceship{ owningWorld, texturePath },
-		m_Shooter{ new BulletShooter{this} }
+		m_Shooter{ new BulletShooter{this, 1.0f, {50.0f, 0.0f}} }
 	{
 		SetVelocity(velocity);
 		SetActorRotation(180.0f);
