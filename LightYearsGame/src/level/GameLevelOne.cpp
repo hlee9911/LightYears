@@ -7,7 +7,10 @@
 #include "enemy/VanguardStage.h"
 #include "enemy/TwinBlade.h"
 #include "enemy/TwinBladeStage.h"
+#include "enemy/Hexagon.h"
+#include "enemy/HexagonStage.h"
 #include "gameplay/GameStage.h"
+#include "gameplay/WaitStage.h"
 
 namespace ly
 {
@@ -38,7 +41,11 @@ namespace ly
 
 	void GameLevelOne::InitGameStages()
 	{
+		// AddStage(shared<WaitStage>{ new WaitStage{ this, 2.0f } });
+		AddStage(shared<HexagonStage>{ new HexagonStage{ this } });
+		AddStage(shared<WaitStage>{ new WaitStage{ this, 4.0f } });
 		AddStage(shared<VanguardStage>{ new VanguardStage{this} });
+		AddStage(shared<WaitStage>{ new WaitStage{ this, 4.0f } });
 		AddStage(shared<TwinBladeStage>{ new TwinBladeStage{ this } });
 	}
 

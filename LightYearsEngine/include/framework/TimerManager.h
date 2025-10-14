@@ -56,7 +56,7 @@ namespace ly
 	public:
 		static TimerManager& Get();
 	
-		// interfce for the settimer
+		// interafce for the settimer
 		template<typename ClassName>
 		TimerHandle SetTimer(weak<Object> weakRef, void(ClassName::*callback)(), float duration, bool repeat = false)
 		{

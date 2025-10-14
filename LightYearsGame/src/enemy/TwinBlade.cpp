@@ -15,6 +15,7 @@ namespace ly
 	void TwinBlade::Tick(float deltaTime)
 	{
 		EnemySpaceship::Tick(deltaTime);
+
 		Shoot();
 	}
 

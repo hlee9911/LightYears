@@ -12,7 +12,7 @@ namespace ly
 		m_Actors{},
 		m_PendingActors{},
 		m_GameStages{},
-		m_CurrentStageIndex{ -1 }
+		m_CurrentStage{ m_GameStages.end() }
 	{
 
 	}
@@ -24,7 +24,8 @@ namespace ly
 			m_HasBegunPlay = true;
 			BeginPlay();
 			InitGameStages();
-			NextGameStage();
+			// NextGameStage();
+			StartStages();
 		}
 	}
 
@@ -48,9 +49,9 @@ namespace ly
 			++iter;
 		}
 
-		if (m_CurrentStageIndex >= 0 && m_CurrentStageIndex < m_GameStages.size())
+		if (m_CurrentStage != m_GameStages.end())
 		{
-			m_GameStages[m_CurrentStageIndex]->TickStage(deltaTime);
+			m_CurrentStage->get()->TickStage(deltaTime);
 		}
 
 		Tick(deltaTime);
@@ -94,18 +95,18 @@ namespace ly
 			}
 		}
 
-		// cleaning game stages part
-		for (auto iter = m_GameStages.begin(); iter != m_GameStages.end();)
-		{
-			if (iter->get()->IsStageFinished())
-			{
-				iter = m_GameStages.erase(iter);
-			}
-			else
-			{
-				++iter;
-			}
-		}
+		//// cleaning game stages part
+		//for (auto iter = m_GameStages.begin(); iter != m_GameStages.end();)
+		//{
+		//	if (iter->get()->IsStageFinished())
+		//	{
+		//		iter = m_GameStages.erase(iter);
+		//	}
+		//	else
+		//	{
+		//		++iter;
+		//	}
+		//}
 	}
 
 	void World::AddStage(const shared<GameStage>& newStage)
@@ -130,12 +131,12 @@ namespace ly
 
 	void World::NextGameStage()
 	{
-		++m_CurrentStageIndex;
-		if (m_CurrentStageIndex >= 0 && m_CurrentStageIndex < m_GameStages.size())
+		m_CurrentStage = m_GameStages.erase(m_CurrentStage);
+		if (m_CurrentStage != m_GameStages.end())
 		{
+			m_CurrentStage->get()->StartStage();
 			// bind the action to move onto the next stage when we invoke current stage event finished event
-			m_GameStages[m_CurrentStageIndex]->onStageFinished.BindAction(GetWeakRef(), &World::NextGameStage);
-			m_GameStages[m_CurrentStageIndex]->StartStage();
+			m_CurrentStage->get()->onStageFinished.BindAction(GetWeakRef(), &World::NextGameStage);
 		}
 		else
 		{
@@ -143,9 +144,17 @@ namespace ly
 		}
 	}
 
+	void World::StartStages()
+	{
+		m_CurrentStage = m_GameStages.begin();
+		m_CurrentStage->get()->StartStage();
+		// bind the action to move onto the next stage when we invoke current stage event finished event
+		m_CurrentStage->get()->onStageFinished.BindAction(GetWeakRef(), &World::NextGameStage);
+	}
+
 	void World::AllGameStageFinished()
 	{
-
+		LOG("All Stages Finished");
 	}
 
 }

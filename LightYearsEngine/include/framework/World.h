@@ -37,6 +37,8 @@ namespace ly
 
 		virtual void InitGameStages();
 		void NextGameStage();
+		void StartStages();
+
 		virtual void AllGameStageFinished();
 
 	private:
@@ -49,7 +51,9 @@ namespace ly
 		// using shared pointer becuase the timer has to work with the weak references
 		// and only shared pointer has that
 		List<shared<GameStage>> m_GameStages; // list of game stages
-		int m_CurrentStageIndex;
+		// int m_CurrentStageIndex;
+
+		List<shared<GameStage>>::iterator m_CurrentStage;
  	};
 
 	template<typename ActorType, typename... Args>
