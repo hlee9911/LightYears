@@ -13,6 +13,7 @@
 #include "enemy/UFOStage.h"
 #include "gameplay/GameStage.h"
 #include "gameplay/WaitStage.h"
+#include "player/PlayerManager.h"
 
 namespace ly
 {
@@ -20,17 +21,16 @@ namespace ly
 		: World{ owningApp },
 		m_TimerHandle_Test{}
 	{
-		m_TestPlayerSpaceship = SpawnActor<PlayerSpaceship>();
-		m_TestPlayerSpaceship.lock()->SetActorLocation(sf::Vector2f{ 300.0f, 490.0f });
+		// m_TestPlayerSpaceship = SpawnActor<PlayerSpaceship>();
+		// m_TestPlayerSpaceship.lock()->SetActorLocation(sf::Vector2f{ 300.0f, 490.0f });
 		// m_TestPlayerSpaceship.lock()->SetActorRotation(-90.0f);
-
-		// for testing
-		//weak<Vanguard> testSpaceship = SpawnActor<Vanguard>();
-		//testSpaceship.lock()->SetActorLocation(sf::Vector2f{ 100.0f, 50.0f });
 	}
 
 	void GameLevelOne::BeginPlay()
 	{
+		Player newPlayer = PlayerManager::Get().CreateNewPlayer();
+		m_PlayerSpaceship = newPlayer.SpawnSpaceship(this);
+		m_PlayerSpaceship.lock()->onActorDestroyed.BindAction(GetWeakRef(), &GameLevelOne::PlayerSpaceshipDestroyed);
 		// m_TimerHandle_Test = TimerManager::Get().SetTimer(GetWeakRef(), &GameLevelOne::TimerCallBack_Test, 2.0f, true);
 		//weak<UFO> testUFO = SpawnActor<UFO>(sf::Vector2f{ 0.0f, 0.0f });
 		//testUFO.lock()->SetActorLocation(sf::Vector2f{ GetWorldSize().x / 2.0f, GetWorldSize().y / 2.0f });
@@ -42,6 +42,25 @@ namespace ly
 	//	LOG("Callback called");
 	//	TimerManager::Get().ClearTimer(m_TimerHandle_Test);
 	//}
+
+	void GameLevelOne::PlayerSpaceshipDestroyed(Actor* destroyedPlayerSpaceship)
+	{
+		m_PlayerSpaceship = PlayerManager::Get().GetPlayer()->SpawnSpaceship(this);
+		if (!m_PlayerSpaceship.expired())
+		{
+			// subscribe to onActorDestroyed again as long as the player still has the life count left
+			m_PlayerSpaceship.lock()->onActorDestroyed.BindAction(GetWeakRef(), &GameLevelOne::PlayerSpaceshipDestroyed);
+		}
+		else
+		{
+			GameOver();
+		}
+	}
+
+	void GameLevelOne::GameOver()
+	{
+		LOG("======================= Game Over! =======================");
+	}
 
 	void GameLevelOne::InitGameStages()
 	{
@@ -57,5 +76,6 @@ namespace ly
 		AddStage(shared<WaitStage>{ new WaitStage{ this, 4.0f } });
 		AddStage(shared<HexagonStage>{ new HexagonStage{ this } });
 	}
+
 
 }

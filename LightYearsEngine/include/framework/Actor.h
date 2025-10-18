@@ -7,6 +7,7 @@
 
 #include "framework/Core.h"
 #include "framework/Object.h"
+#include "framework/Delegate.h"
 
 class b2Body; // Forward declaration of Box2D body
 
@@ -66,6 +67,8 @@ namespace ly
 
 		sf::Sprite& GetSprite() noexcept { return m_Sprite; }
 		const sf::Sprite& GetSprite() const noexcept { return m_Sprite; }
+
+		Delegate<Actor*> onActorDestroyed;
 
 	private:
 		void CenterPivot();

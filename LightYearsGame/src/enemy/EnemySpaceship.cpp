@@ -25,7 +25,7 @@ namespace ly
 	{
 		if (m_RewardFactories.size() == 0) return;
 
-		constexpr float dropRate = 1.0f;
+		constexpr float dropRate = 0.33f; // drop rate
 		bool isSpawningReward = RandomRange(0.0f, 1.0f) <= dropRate;
 
 		// choose pickups randomly and spawn them at the current actor location
