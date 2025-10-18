@@ -24,13 +24,16 @@ namespace ly
 
 		virtual void ApplyDamage(float damageAmt) override;
 
+		HealthComponent& GetHealthComponent() noexcept { return m_HealthComp; }
+
 	private:
 		void Blink();
 		void UpdateBlink(float deltaTime);
 
 		virtual void OnHealthChanged(float amt, float health, float maxHealth);
 		virtual void OnTakenDamage(float amt, float health, float maxHealth);
-		virtual void OnBlow();
+		void OnBlow();
+		virtual void Blew();
 
 	private:
 		sf::Vector2f m_Velocity;

@@ -1,10 +1,12 @@
 #include "enemy/EnemySpaceship.h"
+#include "framework/MathUtility.h"
 
 namespace ly
 {
-	EnemySpaceship::EnemySpaceship(World* owningWorld, const std::string& texturePath, float collisionDamage) noexcept
+	EnemySpaceship::EnemySpaceship(World* owningWorld, const std::string& texturePath, float collisionDamage, const List<RewardFactoryFunc> rewards) noexcept
 		: Spaceship{ owningWorld, texturePath },
-		m_CollisionDamage{ collisionDamage }
+		m_CollisionDamage{ collisionDamage },
+		m_RewardFactories{ rewards }
 	{
 		SetTeamID(2); // Enemy team ID is 2
 	}
@@ -19,6 +21,22 @@ namespace ly
 		}
 	}
 
+	void EnemySpaceship::SpawnReward()
+	{
+		if (m_RewardFactories.size() == 0) return;
+
+		constexpr float dropRate = 1.0f;
+		bool isSpawningReward = RandomRange(0.0f, 1.0f) <= dropRate;
+
+		// choose pickups randomly and spawn them at the current actor location
+		int pick = (int)RandomRange(0, m_RewardFactories.size());
+		if (isSpawningReward && (pick >= 0 && pick < m_RewardFactories.size()))
+		{
+			weak<Reward> newReward = m_RewardFactories[pick](GetWorld());
+			newReward.lock()->SetActorLocation(GetActorLocation());
+		}
+	}
+
 	void EnemySpaceship::OnActorBeginOverlap(Actor* otherActor)
 	{
 		Spaceship::OnActorBeginOverlap(otherActor);
@@ -27,5 +45,10 @@ namespace ly
 		{
 			otherActor->ApplyDamage(m_CollisionDamage);
 		}
+	}
+
+	void EnemySpaceship::Blew()
+	{
+		SpawnReward();
 	}
 }

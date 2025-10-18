@@ -15,6 +15,11 @@ namespace ly
 
 		Actor* GetOwner() const noexcept { return m_Owner; }
 
+		int GetCurrentLevel() const noexcept { return m_CurrentLevel; }
+		int GetMaxLevel() const noexcept { return m_MaxLevel; }
+
+		virtual void IncrementLevel(int amt = 1);
+
 	protected:
 		Shooter(Actor* owner) noexcept;
 
@@ -23,6 +28,9 @@ namespace ly
 
 	private:
 		Actor* m_Owner;
+
+		int m_CurrentLevel;
+		int m_MaxLevel;
 	};
 }
 

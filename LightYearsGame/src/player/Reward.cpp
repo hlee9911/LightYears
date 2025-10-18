@@ -1,5 +1,8 @@
 #include "player/Reward.h"
 #include "player/PlayerSpaceship.h"
+#include "weapon/ThreeWayShooter.h"
+#include "weapon/FrontalWiper.h"
+#include "framework/World.h"
 
 namespace ly
 {
@@ -28,10 +31,59 @@ namespace ly
     void Reward::OnActorBeginOverlap(Actor* otherActor)
     {
         // TODO: clean up casting
-		PlayerSpaceship* playerSpaceship = static_cast<PlayerSpaceship*>(otherActor);
+		// using dynamic_cast here to runtime type check if otherActor is actually the PlayerSpaceship
+		// otherwise it will just ignore and return nullptr
+		PlayerSpaceship* playerSpaceship = dynamic_cast<PlayerSpaceship*>(otherActor);
         if (playerSpaceship != nullptr && !playerSpaceship->IsPendingDestroy())
         {
             m_RewardFunc(playerSpaceship);
+			Destroy();
         }
     }
+
+	weak<Reward> CreateHealthReward(World* world)
+	{
+		return CreateReward(world, "SpaceShooterRedux/PNG/pickups/pill_green.png", RewardHealth);
+	}
+
+	weak<Reward> CreateThreeWayShooterReward(World* world)
+	{
+		return CreateReward(world, "SpaceShooterRedux/PNG/pickups/three_shooter_pickup.png", RewardThreewayShooter);
+	}
+
+	weak<Reward> CreateFrontalWiperReward(World* world)
+	{
+		return CreateReward(world, "SpaceShooterRedux/PNG/pickups/front_row_shooter_pickup.png", RewardFrontalWiper);
+	}
+
+	weak<Reward> CreateReward(World* world, const std::string& texturePath, RewardFunc rewardFunc)
+	{
+		weak<Reward> reward = world->SpawnActor<Reward>(texturePath, rewardFunc);
+		return reward;
+	}
+
+	void RewardHealth(PlayerSpaceship* player)
+	{
+		static constexpr float rewardAmt = 10.0f;
+		if (player && !player->IsPendingDestroy())
+		{
+			player->GetHealthComponent().ChangeHealth(rewardAmt);
+		}
+	}
+
+	void RewardThreewayShooter(PlayerSpaceship* player)
+	{
+		if (player && !player->IsPendingDestroy())
+		{
+			player->SetShooter(unique<Shooter> { new ThreeWayShooter{ player, 0.3f, {50.0f, 0.0f} }});
+		}
+	}
+
+	void RewardFrontalWiper(PlayerSpaceship* player)
+	{
+		if (player && !player->IsPendingDestroy())
+		{
+			player->SetShooter(unique<Shooter> { new FrontalWiper{ player, 0.6f, {50.0f, 0.0f} }});
+		}
+	}
 }

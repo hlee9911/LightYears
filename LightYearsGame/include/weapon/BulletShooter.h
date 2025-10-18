@@ -20,6 +20,7 @@ namespace ly
 
 		virtual bool CanShoot() const override;
 		virtual bool IsOnCooldown() const override;
+		virtual void IncrementLevel(int amt = 1) override;
 
 		void SetBulletTexturePath(const std::string& bulletTexturePath) noexcept;
 
