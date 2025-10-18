@@ -13,7 +13,7 @@ namespace ly
 		m_TickClock{},
 		m_CurrentWorld{ nullptr },
 		m_CleanCycleClock{},
-		m_CleanCycleInterval{ 2.0f } // clean every 2 seconds
+		m_CleanCycleInterval{ 2.0f } // clean assets every 2 seconds
 	{
 
 	}
@@ -29,15 +29,23 @@ namespace ly
 			while (m_Window.pollEvent(windowEvent))
 			{
 				// handle window close event
-				if (windowEvent.type == sf::Event::EventType::Closed) m_Window.close();
-
 				// handle when escape key is pressed, close the window
-				if (windowEvent.type == sf::Event::EventType::KeyPressed)
+				if (windowEvent.type == sf::Event::EventType::Closed ||
+					(windowEvent.type == sf::Event::EventType::KeyPressed &&
+						windowEvent.key.code == sf::Keyboard::Escape))
 				{
-					if (windowEvent.key.code == sf::Keyboard::Escape) m_Window.close();
+					m_Window.close();
 				}
-			}
+				else
+				{
+					DispatchEvent(windowEvent);
+				}
 
+				//if (windowEvent.type == sf::Event::EventType::KeyPressed)
+				//{
+				//	if (windowEvent.key.code == sf::Keyboard::Escape) m_Window.close();
+				//}
+			}
 
 			float frameDeltaTime = m_TickClock.restart().asSeconds();
 			// fixed timestep update
@@ -53,6 +61,14 @@ namespace ly
 
 			// for debugging, print out the current framerate (acutal framerate)
 			// LOG("Ticking at framerate: %.2f FPS", 1.0f / frameDeltaTime);
+		}
+	}
+
+	bool Application::DispatchEvent(const sf::Event& event)
+	{
+		if (m_CurrentWorld)
+		{
+			return m_CurrentWorld->DispatchEvent(event);
 		}
 	}
 

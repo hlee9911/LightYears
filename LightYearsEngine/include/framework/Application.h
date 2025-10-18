@@ -21,9 +21,13 @@ namespace ly // Lightyear
 		weak<WorldType> LoadWorld(); // shouldnt supposed to have the ownership of the world
 
 		sf::Vector2u GetWindowSize() const noexcept { return m_Window.getSize(); }
+		sf::RenderWindow& GetWindow() noexcept { return m_Window; }
+		const sf::RenderWindow& GetWindow() const noexcept { return m_Window; }
 
 	private:
 		// internal functions
+		bool DispatchEvent(const sf::Event& event);
+
 		void TickInternal(float deltaTime);
 		void RenderInternal() noexcept;
 		

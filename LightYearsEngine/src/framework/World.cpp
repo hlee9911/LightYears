@@ -3,6 +3,7 @@
 #include "framework/Actor.h"
 #include "framework/Application.h"
 #include "gameplay/GameStage.h"
+#include "widgets/HUD.h"
 
 namespace ly
 {
@@ -55,6 +56,12 @@ namespace ly
 		}
 
 		Tick(deltaTime);
+
+		// Handle HUD section
+		if (m_HUD && !m_HUD->HasInit())
+		{
+			m_HUD->NativeInit(m_OwningApp->GetWindow());
+		}
 	}
 
 	void World::Render(sf::RenderWindow& window)
@@ -63,6 +70,8 @@ namespace ly
 		{
 			actor->Render(window);
 		}
+
+		RenderHUD(window);
 	}
 
 	World::~World() noexcept
@@ -114,6 +123,14 @@ namespace ly
 		m_GameStages.push_back(newStage);
 	}
 
+	bool World::DispatchEvent(const sf::Event& event)
+	{
+		if (m_HUD)
+		{
+			return m_HUD->HandleEvent(event);
+		}
+	}
+
 	void World::BeginPlay()
 	{
 		// LOG("Begun play");
@@ -122,6 +139,14 @@ namespace ly
 	void World::Tick(float deltaTime)
 	{
 		// LOG("Ticking at frame rate: %f", 1.0f / deltaTime);
+	}
+
+	void World::RenderHUD(sf::RenderWindow& window)
+	{
+		if (m_HUD)
+		{
+			m_HUD->Draw(window);
+		}
 	}
 
 	void World::InitGameStages()
