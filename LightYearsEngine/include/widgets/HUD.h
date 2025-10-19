@@ -15,6 +15,7 @@ namespace ly
 		void NativeInit(const sf::RenderWindow& windowRef);
 		bool HasInit() const noexcept { return m_AlreadyInit; }
 		virtual bool HandleEvent(const sf::Event& event);
+		virtual void Tick(float deltaTime);
 
 	protected:
 		HUD() noexcept;

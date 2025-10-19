@@ -58,9 +58,12 @@ namespace ly
 		Tick(deltaTime);
 
 		// Handle HUD section
-		if (m_HUD && !m_HUD->HasInit())
+		if (m_HUD)
 		{
-			m_HUD->NativeInit(m_OwningApp->GetWindow());
+			if (!m_HUD->HasInit())
+				m_HUD->NativeInit(m_OwningApp->GetWindow());
+
+			m_HUD->Tick(deltaTime);
 		}
 	}
 
@@ -129,6 +132,7 @@ namespace ly
 		{
 			return m_HUD->HandleEvent(event);
 		}
+		return false;
 	}
 
 	void World::BeginPlay()

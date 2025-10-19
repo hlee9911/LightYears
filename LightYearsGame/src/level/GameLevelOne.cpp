@@ -14,6 +14,7 @@
 #include "gameplay/GameStage.h"
 #include "gameplay/WaitStage.h"
 #include "player/PlayerManager.h"
+#include "widgets/GameplayHUD.h"
 
 namespace ly
 {
@@ -31,6 +32,8 @@ namespace ly
 		Player newPlayer = PlayerManager::Get().CreateNewPlayer();
 		m_PlayerSpaceship = newPlayer.SpawnSpaceship(this);
 		m_PlayerSpaceship.lock()->onActorDestroyed.BindAction(GetWeakRef(), &GameLevelOne::PlayerSpaceshipDestroyed);
+		
+		m_GameplayHUD = SpawnHUD<GameplayHUD>();
 		// m_TimerHandle_Test = TimerManager::Get().SetTimer(GetWeakRef(), &GameLevelOne::TimerCallBack_Test, 2.0f, true);
 		//weak<UFO> testUFO = SpawnActor<UFO>(sf::Vector2f{ 0.0f, 0.0f });
 		//testUFO.lock()->SetActorLocation(sf::Vector2f{ GetWorldSize().x / 2.0f, GetWorldSize().y / 2.0f });

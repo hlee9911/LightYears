@@ -8,6 +8,7 @@
 namespace ly
 {
 	class PlayerSpaceship;
+	class GameplayHUD;
 	class GameLevelOne : public World
 	{
 	public:
@@ -22,6 +23,7 @@ namespace ly
 
 	private:
 		weak<PlayerSpaceship> m_PlayerSpaceship;
+		weak<GameplayHUD> m_GameplayHUD;
 		TimerHandle m_TimerHandle_Test;
 	};
 }

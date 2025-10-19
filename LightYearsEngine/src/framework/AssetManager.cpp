@@ -17,41 +17,18 @@ namespace ly
 
 	shared<sf::Texture> AssetManager::LoadTexture(const std::string& path)
 	{
-		// Check if texture is already loaded
-		auto found = m_LoadedTextureMap.find(path);
-		if (found != m_LoadedTextureMap.end())
-		{
-			return found->second;
-		}
+		return LoadAsset<sf::Texture>(path, m_LoadedTextureMap);
+	}
 
-		// Load new texture if not found
-		shared<sf::Texture> newTexture{ new sf::Texture };
-		if (newTexture->loadFromFile(m_RootDirectory + path))
-		{
-			m_LoadedTextureMap.insert({ path, newTexture });
-			return newTexture;
-		}
-
-		// if failed to load texture, return nullptr
-		ERROR("Failed to load texture from path: %s", path.c_str());
-		return shared<sf::Texture>{ nullptr };
+	shared<sf::Font> AssetManager::LoadFont(const std::string& path)
+	{
+		return LoadAsset<sf::Font>(path, m_LoadedFontMap);
 	}
 
 	void AssetManager::CleanCycle()
 	{
-		// Remove unused textures from the map
-		for (auto iter = m_LoadedTextureMap.begin(); iter != m_LoadedTextureMap.end();)
-		{
-			if (iter->second.unique()) // only held by the map
-			{
-				LOG("Cleaning texture: %s", iter->first.c_str());
-				iter = m_LoadedTextureMap.erase(iter);
-			}
-			else // still used somewhere else
-			{
-				++iter;
-			}
-		}
+		CleanUniqueRef<sf::Texture>(m_LoadedTextureMap);
+		CleanUniqueRef<sf::Font>(m_LoadedFontMap);
 	}
 
 	void AssetManager::SetAssetRootDirectory(const std::string& rootDir)
