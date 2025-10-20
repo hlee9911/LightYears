@@ -26,6 +26,7 @@ namespace ly
 		}
 		else
 		{
+			m_CurrentPlayerSpaceship = weak<PlayerSpaceship>{}; // make sure to clear the current spaceship reference
 			onLifeExhausted.Broadcast();
 		}
 		return weak<PlayerSpaceship>{};

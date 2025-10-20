@@ -25,6 +25,8 @@ namespace ly
 			m_CurrentHealth = 0.0f;
 		}
 
+		onHealthChanged.Broadcast(amt, m_CurrentHealth, m_MaxHealth);
+		
 		if (amt < 0.0f)
 		{
 			TakenDamange(-amt);
@@ -33,8 +35,6 @@ namespace ly
 				HealthEmpty();
 			}
 		}
-
-		onHealthChanged.Broadcast(amt, m_CurrentHealth, m_MaxHealth);
 	}
 
 	void HealthComponent::TakenDamange(float amt)
