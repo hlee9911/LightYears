@@ -16,10 +16,18 @@ namespace ly
 
 		void UpdateValue(float value, float maxValue);
 
+		virtual sf::FloatRect GetBound() const override;
+		
+		void SetTextSize(unsigned int characterSize);
+
+		void SetForegroundColor(const sf::Color& newColor) noexcept;
+		void SetBackgroundColor(const sf::Color& newColor) noexcept;
+
 	private:
 		virtual void Draw(sf::RenderWindow& windowRef) override;
 		virtual void LocationUpdated(const sf::Vector2f& newLocation) override;
 		virtual void RotationUpdated(float newRotation) override;
+		void CenterText();
 
 	private:
 		shared<sf::Font> m_TextFont;

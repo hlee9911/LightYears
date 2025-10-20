@@ -9,7 +9,12 @@ namespace ly
 	GameplayHUD::GameplayHUD() noexcept
 		: HUD{},
 		m_FrameRateText{ "FPS: " },
-		m_PlayerHealthBar{}
+		m_PlayerHealthBar{},
+		m_HealthyHealthBarColor{ sf::Color{ 128, 255, 128, 255 } },
+		m_WarningHealthBarColor{ sf::Color{ 255, 255, 0, 255 } },
+		m_DangerHealthBarColor{ sf::Color{ 255, 0, 0, 255 } },
+		m_HealthWarningThreshold{ 0.7f },
+		m_HealthDangerThreshold{ 0.3f }
 	{
 		m_FrameRateText.SetTextSize(25);
 	}
@@ -40,6 +45,19 @@ namespace ly
 	{
 		// LOG("Player Health Updated: %f, Current Health: %f/%f", changeAmt, currentHealth, maxHealth);
 		m_PlayerHealthBar.UpdateValue(currentHealth, maxHealth);
+		if (currentHealth / maxHealth <= m_HealthWarningThreshold &&
+			currentHealth / maxHealth > m_HealthDangerThreshold)
+		{
+			m_PlayerHealthBar.SetForegroundColor(m_WarningHealthBarColor);
+		}
+		else if (currentHealth / maxHealth <= m_HealthDangerThreshold)
+		{
+			m_PlayerHealthBar.SetForegroundColor(m_DangerHealthBarColor);
+		}
+		else
+		{
+			m_PlayerHealthBar.SetForegroundColor(m_HealthyHealthBarColor);
+		}
 	}
 
 	void GameplayHUD::RefreshHealthBar()
@@ -55,6 +73,9 @@ namespace ly
 			HealthComponent& healthComp = player->GetCurrentPlayerSpaceship().lock()->GetHealthComponent();
 			healthComp.onHealthChanged.BindAction(GetWeakRef(), &GameplayHUD::PlayerHealthUpdated);
 			m_PlayerHealthBar.UpdateValue(healthComp.GetHealth(), healthComp.GetMaxHealth());
+		
+			// reset health bar color to healthy
+			m_PlayerHealthBar.SetForegroundColor(m_HealthyHealthBarColor);
 		}
 	}
 

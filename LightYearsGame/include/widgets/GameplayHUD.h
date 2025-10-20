@@ -29,6 +29,12 @@ namespace ly
 		TextWidget m_FrameRateText;
 		ValueGuage m_PlayerHealthBar;
 
+		sf::Color m_HealthyHealthBarColor;
+		sf::Color m_WarningHealthBarColor;
+		sf::Color m_DangerHealthBarColor;
+
+		float m_HealthWarningThreshold;
+		float m_HealthDangerThreshold;
 	};
 }
 

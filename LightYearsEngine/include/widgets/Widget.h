@@ -24,6 +24,8 @@ namespace ly
 
 		void SetVisibility(bool newVisibility) noexcept;
 		bool IsVisible() const noexcept { return m_IsVisible; }
+		virtual sf::FloatRect GetBound() const;
+		sf::Vector2f GetCenterPosition() const;
 
 	protected:
 		Widget() noexcept;

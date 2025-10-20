@@ -32,6 +32,19 @@ namespace ly
 		m_IsVisible = newVisibility;
 	}
 
+	sf::FloatRect Widget::GetBound() const
+	{
+		return sf::FloatRect();
+	}
+
+	sf::Vector2f Widget::GetCenterPosition() const
+	{
+		sf::FloatRect bound = GetBound();
+		// Calculate center position based on bounds
+		// Note: This assumes the bound's left and top represent the top-left corner
+		return sf::Vector2f{ bound.left + bound.width / 2.0f, bound.top + bound.height / 2.0f };
+	}
+
 	Widget::Widget() noexcept
 		: m_IsVisible{ true },
 		m_WidgetTransform{}

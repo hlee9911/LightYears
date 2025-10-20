@@ -20,6 +20,11 @@ namespace ly
 		m_Text.setCharacterSize(newSize);
 	}
 
+	sf::FloatRect TextWidget::GetBound() const
+	{
+		return m_Text.getGlobalBounds();
+	}
+
 	void TextWidget::Draw(sf::RenderWindow& windowRef)
 	{
 		windowRef.draw(m_Text);

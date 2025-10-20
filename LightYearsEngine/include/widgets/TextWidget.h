@@ -19,6 +19,7 @@ namespace ly
 
 		void SetTextString(const std::string& newString) noexcept;
 		void SetTextSize(unsigned int newSize) noexcept;
+		virtual sf::FloatRect GetBound() const override;
 
 	private:
 		virtual void Draw(sf::RenderWindow& windowRef) override;
