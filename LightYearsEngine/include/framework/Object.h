@@ -22,11 +22,17 @@ namespace ly
 		weak<Object> GetWeakRef() noexcept;
 		weak<const Object> GetWeakRef() const noexcept;
 
+		unsigned int GetUniqueID() const noexcept { return m_UniqueID; }
+
 	public:
 		Delegate<Object*> onDestroyed;
 
 	private:
 		bool m_IsPendingDestroy;
+		unsigned int m_UniqueID;
+
+		static unsigned int s_UniqueIDCounter;
+		static unsigned int GetNexAvailableID() noexcept;
 	};
 }
 

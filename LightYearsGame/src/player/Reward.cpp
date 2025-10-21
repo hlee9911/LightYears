@@ -1,5 +1,6 @@
 #include "player/Reward.h"
 #include "player/PlayerSpaceship.h"
+#include "player/PlayerManager.h"
 #include "weapon/ThreeWayShooter.h"
 #include "weapon/FrontalWiper.h"
 #include "framework/World.h"
@@ -30,16 +31,30 @@ namespace ly
 
     void Reward::OnActorBeginOverlap(Actor* otherActor)
     {
-        // TODO: clean up casting
 		// using dynamic_cast here to runtime type check if otherActor is actually the PlayerSpaceship
 		// otherwise it will just ignore and return nullptr
-		PlayerSpaceship* playerSpaceship = dynamic_cast<PlayerSpaceship*>(otherActor);
-        if (playerSpaceship != nullptr && !playerSpaceship->IsPendingDestroy())
-        {
-            m_RewardFunc(playerSpaceship);
+		//PlayerSpaceship* playerSpaceship = dynamic_cast<PlayerSpaceship*>(otherActor);
+        //if (playerSpaceship != nullptr && !playerSpaceship->IsPendingDestroy())
+        //{
+        //  m_RewardFunc(playerSpaceship);
+		//	Destroy();
+        //}
+
+		// Alternative way without dynamic_cast
+		if (!otherActor || otherActor->IsPendingDestroy()) return;
+		if (!PlayerManager::Get().GetPlayer()) return;
+
+		weak<PlayerSpaceship> playerSpaceship = PlayerManager::Get().GetPlayer()->GetCurrentPlayerSpaceship();
+		if (playerSpaceship.expired() || playerSpaceship.lock()->IsPendingDestroy()) return;
+
+		// compare unique IDs to see if they are the same actor
+		// instead of comparing pointers directly, which may not be reliable in some cases
+		if (playerSpaceship.lock()->GetUniqueID() == otherActor->GetUniqueID())
+		{
+			m_RewardFunc(playerSpaceship.lock().get());
 			Destroy();
-        }
-    }
+		}
+	}
 
 	weak<Reward> CreateHealthReward(World* world)
 	{
@@ -75,7 +90,7 @@ namespace ly
 	{
 		if (player && !player->IsPendingDestroy())
 		{
-			player->SetShooter(unique<Shooter> { new ThreeWayShooter{ player, 0.3f, {50.0f, 0.0f} }});
+			player->SetShooter(unique<Shooter>{ new ThreeWayShooter{ player, 0.3f, {50.0f, 0.0f} } });
 		}
 	}
 
@@ -83,7 +98,7 @@ namespace ly
 	{
 		if (player && !player->IsPendingDestroy())
 		{
-			player->SetShooter(unique<Shooter> { new FrontalWiper{ player, 0.6f, {50.0f, 0.0f} }});
+			player->SetShooter(unique<Shooter>{ new FrontalWiper{ player, 0.6f, {50.0f, 0.0f} } });
 		}
 	}
 }

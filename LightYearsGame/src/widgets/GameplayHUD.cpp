@@ -10,19 +10,25 @@ namespace ly
 		: HUD{},
 		m_FrameRateText{ "FPS: " },
 		m_PlayerHealthBar{},
+		m_PlayerLifeIcon{ "SpaceShooterRedux/PNG/pickups/playerLife1_blue.png" },
+		m_PlayerLivesText{ "" },
 		m_HealthyHealthBarColor{ sf::Color{ 128, 255, 128, 255 } },
 		m_WarningHealthBarColor{ sf::Color{ 255, 255, 0, 255 } },
 		m_DangerHealthBarColor{ sf::Color{ 255, 0, 0, 255 } },
 		m_HealthWarningThreshold{ 0.7f },
-		m_HealthDangerThreshold{ 0.3f }
+		m_HealthDangerThreshold{ 0.3f },
+		m_WidgetSpacing{ 10.0f }
 	{
 		m_FrameRateText.SetTextSize(25);
+		m_PlayerLivesText.SetTextSize(20);
 	}
 
 	void GameplayHUD::Draw(sf::RenderWindow& windowRef)
 	{
 		m_FrameRateText.NativeDraw(windowRef);
 		m_PlayerHealthBar.NativeDraw(windowRef);
+		m_PlayerLifeIcon.NativeDraw(windowRef);
+		m_PlayerLivesText.NativeDraw(windowRef);
 	}
 
 	void GameplayHUD::Tick(float deltaTime)
@@ -37,7 +43,18 @@ namespace ly
 		auto windowSize = windowRef.getSize();
 		m_PlayerHealthBar.SetWidgetLocation(sf::Vector2f{ 20.0f, windowSize.y - 50.0f });
 		
+		sf::Vector2f nextWidgetPos = m_PlayerHealthBar.GetWidgetLocation();
+
+		// position the life icon next to the health bar
+		nextWidgetPos += sf::Vector2f{ m_PlayerHealthBar.GetBound().width + m_WidgetSpacing, 7.5f };
+		m_PlayerLifeIcon.SetWidgetLocation(nextWidgetPos);
+
+		// position the life count text next to the life icon
+		nextWidgetPos += sf::Vector2f{ m_PlayerLifeIcon.GetBound().width + m_WidgetSpacing, 0.0f };
+		m_PlayerLivesText.SetWidgetLocation(nextWidgetPos);
+
 		RefreshHealthBar();
+		ConnectPlayerLifeCount();
 	}
 
 	// Callback when player's health is updated
@@ -60,6 +77,11 @@ namespace ly
 		}
 	}
 
+	void GameplayHUD::PlayerLifeCountUpdated(int changeAmt)
+	{
+		m_PlayerLivesText.SetTextString(std::to_string(changeAmt));
+	}
+
 	void GameplayHUD::RefreshHealthBar()
 	{
 		Player* player = PlayerManager::Get().GetPlayer();
@@ -72,10 +94,21 @@ namespace ly
 
 			HealthComponent& healthComp = player->GetCurrentPlayerSpaceship().lock()->GetHealthComponent();
 			healthComp.onHealthChanged.BindAction(GetWeakRef(), &GameplayHUD::PlayerHealthUpdated);
-			m_PlayerHealthBar.UpdateValue(healthComp.GetHealth(), healthComp.GetMaxHealth());
-		
 			// reset health bar color to healthy
-			m_PlayerHealthBar.SetForegroundColor(m_HealthyHealthBarColor);
+			PlayerHealthUpdated(0.0f, healthComp.GetHealth(), healthComp.GetMaxHealth());
+			m_PlayerHealthBar.UpdateValue(healthComp.GetHealth(), healthComp.GetMaxHealth());
+		}
+	}
+
+	void GameplayHUD::ConnectPlayerLifeCount()
+	{
+		Player* player = PlayerManager::Get().GetPlayer();
+		if (player)
+		{
+			int lifeCount = player->GetPlayerLifeCount();
+			std::string lifeCountStr = std::to_string(lifeCount);
+			m_PlayerLivesText.SetTextString(lifeCountStr);
+			player->onLifeCountChanged.BindAction(GetWeakRef(), &GameplayHUD::PlayerLifeCountUpdated);
 		}
 	}
 
