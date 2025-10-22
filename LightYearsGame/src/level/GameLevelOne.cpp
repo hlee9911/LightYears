@@ -67,10 +67,7 @@ namespace ly
 
 	void GameLevelOne::InitGameStages()
 	{
-		AddStage(shared<WaitStage>{ new WaitStage{ this, 1.0f } });
-		AddStage(shared<UFOStage>{ new UFOStage{ this } });
-
-		AddStage(shared<WaitStage>{ new WaitStage{ this, 4.0f } });
+		AddStage(shared<WaitStage>{ new WaitStage{ this, 0.5f } });
 		AddStage(shared<VanguardStage>{ new VanguardStage{this} });
 
 		AddStage(shared<WaitStage>{ new WaitStage{ this, 4.0f } });
@@ -78,6 +75,9 @@ namespace ly
 
 		AddStage(shared<WaitStage>{ new WaitStage{ this, 4.0f } });
 		AddStage(shared<HexagonStage>{ new HexagonStage{ this } });
+
+		AddStage(shared<WaitStage>{ new WaitStage{ this, 4.0f } });
+		AddStage(shared<UFOStage>{ new UFOStage{ this } });
 	}
 
 

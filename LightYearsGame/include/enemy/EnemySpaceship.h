@@ -13,14 +13,18 @@ namespace ly
 		EnemySpaceship(World* owningWorld, 
 			const std::string& texturePath, 
 			float collisionDamage = 200.0f,
+			float rewardDropWeight = 0.50f,
 			const List<RewardFactoryFunc> rewards = 
 			{
 				CreateHealthReward,
 				CreateThreeWayShooterReward,
-				CreateFrontalWiperReward
-			}) noexcept;
+				CreateFrontalWiperReward,
+				CreateLifeUpReward
+			}
+		) noexcept;
 
 		virtual void Tick(float deltaTime) override;
+		void SetScoreAwardAmount(unsigned int amount) noexcept { m_ScoreAwardAmt = amount; }
 
 	private:
 		void SpawnReward();
@@ -30,6 +34,8 @@ namespace ly
 	private:
 		float m_CollisionDamage;
 		List<RewardFactoryFunc> m_RewardFactories;
+		unsigned int m_ScoreAwardAmt;
+		float m_RewardDropWeight;
 	};
 }
 

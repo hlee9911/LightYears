@@ -6,6 +6,9 @@
 #include "widgets/TextWidget.h"
 #include "widgets/ValueGuage.h"
 #include "widgets/ImageWidget.h"
+#include "widgets/Button.h"
+
+#include <string>
 
 namespace ly
 {
@@ -23,16 +26,25 @@ namespace ly
 		virtual void Init(const sf::RenderWindow& windowRef) override;
 
 		void RefreshHealthBar();
-		void ConnectPlayerLifeCount();
+		void ConnectPlayerStatus();
 		void PlayerHealthUpdated(float changeAmt, float currentHealth, float maxHealth);
 		void PlayerLifeCountUpdated(int changeAmt);
+		void PlayerScoreUpdated(int newScore);
 		void PlayerSpaceshipDestroyed(Actor* actor);
+
+		std::string FormatWithCommas(int value);
 
 	private:
 		TextWidget m_FrameRateText;
 		ValueGuage m_PlayerHealthBar;
 		ImageWidget m_PlayerLifeIcon;
 		TextWidget m_PlayerLivesText;
+
+		ImageWidget m_PlayerScoreIcon;
+		TextWidget m_PlayerScoreText;
+
+		// TODO: Remove Button after testing
+		Button m_TestButton;
 
 		sf::Color m_HealthyHealthBarColor;
 		sf::Color m_WarningHealthBarColor;

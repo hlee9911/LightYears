@@ -32,6 +32,7 @@ namespace ly
 	weak<Reward> CreateHealthReward(World* world);
 	weak<Reward> CreateThreeWayShooterReward(World* world);
 	weak<Reward> CreateFrontalWiperReward(World* world);
+	weak<Reward> CreateLifeUpReward(World* world);
 
 	// Factory function to create actual corresponding reward based enemy holding the reward
 	weak<Reward> CreateReward(World* world, const std::string& texturePath, RewardFunc rewardFunc);
@@ -39,6 +40,7 @@ namespace ly
 	void RewardHealth(PlayerSpaceship* player);
 	void RewardThreewayShooter(PlayerSpaceship* player);
 	void RewardFrontalWiper(PlayerSpaceship* player);
+	void RewardLifeUp(PlayerSpaceship* player);
 }
 
 #endif // REWARD_H
