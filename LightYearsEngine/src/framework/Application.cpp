@@ -34,7 +34,7 @@ namespace ly
 					(windowEvent.type == sf::Event::EventType::KeyPressed &&
 						windowEvent.key.code == sf::Keyboard::Escape))
 				{
-					m_Window.close();
+					QuitApplication();
 				}
 				else
 				{
@@ -62,6 +62,11 @@ namespace ly
 			// for debugging, print out the current framerate (acutal framerate)
 			// LOG("Ticking at framerate: %.2f FPS", 1.0f / frameDeltaTime);
 		}
+	}
+
+	void Application::QuitApplication() noexcept
+	{
+		m_Window.close();
 	}
 
 	bool Application::DispatchEvent(const sf::Event& event)
@@ -100,6 +105,13 @@ namespace ly
 			{
 				m_CurrentWorld->CleanCycle();
 			}
+		}
+
+		// Handle pending world loading and assign it to the current world
+		if (m_PendingWorld && m_PendingWorld != m_CurrentWorld)
+		{
+			m_CurrentWorld = m_PendingWorld;
+			m_CurrentWorld->BeginPlayInternal();
 		}
 	}
 

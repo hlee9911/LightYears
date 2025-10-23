@@ -176,9 +176,12 @@ namespace ly
 	void World::StartStages()
 	{
 		m_CurrentStage = m_GameStages.begin();
-		m_CurrentStage->get()->StartStage();
-		// bind the action to move onto the next stage when we invoke current stage event finished event
-		m_CurrentStage->get()->onStageFinished.BindAction(GetWeakRef(), &World::NextGameStage);
+		if (m_CurrentStage != m_GameStages.end())
+		{
+			m_CurrentStage->get()->StartStage();
+			// bind the action to move onto the next stage when we invoke current stage event finished event
+			m_CurrentStage->get()->onStageFinished.BindAction(GetWeakRef(), &World::NextGameStage);
+		}
 	}
 
 	void World::AllGameStageFinished()

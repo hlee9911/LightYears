@@ -16,11 +16,23 @@ namespace ly
 			const std::string& buttonTexturePath = "SpaceShooterRedux/PNG/UI/buttonBlue.png") noexcept;
 		
 		virtual sf::FloatRect GetBound() const override;
+		virtual bool HandleEvent(const sf::Event& windowEvent) override;
+
+		void SetTextString(const std::string& newStr);
+		void SetTextSize(unsigned int newSize) noexcept;
+
+		Delegate<> onButtonClicked;
 
 	private:
 		virtual void Draw(sf::RenderWindow& windowRef) override;
 		virtual void LocationUpdated(const sf::Vector2f& newLocation) override;
 		virtual void RotationUpdated(float newRotation) override;
+
+		void CenterText();
+
+		void ButtonUp();
+		void ButtonDown();
+		void MouseHovered();
 
 	private:
 		shared<sf::Texture> m_ButtonTexture;

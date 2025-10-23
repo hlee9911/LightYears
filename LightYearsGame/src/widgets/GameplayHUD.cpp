@@ -19,8 +19,7 @@ namespace ly
 		m_DangerHealthBarColor{ sf::Color{ 255, 0, 0, 255 } },
 		m_HealthWarningThreshold{ 0.7f },
 		m_HealthDangerThreshold{ 0.3f },
-		m_WidgetSpacing{ 10.0f },
-		m_TestButton{}
+		m_WidgetSpacing{ 10.0f }
 	{
 		m_FrameRateText.SetTextSize(25);
 		m_PlayerLivesText.SetTextSize(20);
@@ -35,8 +34,6 @@ namespace ly
 		m_PlayerLivesText.NativeDraw(windowRef);
 		m_PlayerScoreIcon.NativeDraw(windowRef);
 		m_PlayerScoreText.NativeDraw(windowRef);
-
-		m_TestButton.NativeDraw(windowRef);
 	}
 
 	void GameplayHUD::Tick(float deltaTime)
@@ -44,6 +41,11 @@ namespace ly
 		int frameRate = static_cast<int>(1.0f / deltaTime);
 		std::string frameRateStr = "FPS: " + std::to_string(frameRate);
 		m_FrameRateText.SetTextString(frameRateStr);
+	}
+
+	bool GameplayHUD::HandleEvent(const sf::Event& event)
+	{
+		return HUD::HandleEvent(event);
 	}
 
 	void GameplayHUD::Init(const sf::RenderWindow& windowRef)
@@ -68,8 +70,6 @@ namespace ly
 		// position the score text next to the score icon
 		nextWidgetPos += sf::Vector2f{ m_PlayerScoreIcon.GetBound().width + m_WidgetSpacing, 2.5f };
 		m_PlayerScoreText.SetWidgetLocation(nextWidgetPos);
-
-		m_TestButton.SetWidgetLocation({ windowSize.x / 2.0f, windowSize.y / 2.0f });
 
 		RefreshHealthBar();
 		ConnectPlayerStatus();

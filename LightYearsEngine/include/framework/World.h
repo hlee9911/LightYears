@@ -35,6 +35,8 @@ namespace ly
 		void CleanCycle();
 		void AddStage(const shared<GameStage>& newStage);
 		bool DispatchEvent(const sf::Event& event);
+		Application* GetOwningApplication() noexcept { return m_OwningApp; }
+		const Application* GetOwningApplication() const noexcept { return m_OwningApp; }
 
 	private:
 		virtual void BeginPlay();

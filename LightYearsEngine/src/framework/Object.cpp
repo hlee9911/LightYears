@@ -14,7 +14,7 @@ namespace ly
 
 	Object::~Object() noexcept
 	{
-		// LOG("Object Destroyed");
+		LOG("Object Destroyed");
 	}
 
 	// we will not actually destroy the object here, just mark it for destruction

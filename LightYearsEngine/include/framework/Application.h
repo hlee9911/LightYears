@@ -24,6 +24,8 @@ namespace ly // Lightyear
 		sf::RenderWindow& GetWindow() noexcept { return m_Window; }
 		const sf::RenderWindow& GetWindow() const noexcept { return m_Window; }
 
+		void QuitApplication() noexcept;
+
 	private:
 		// internal functions
 		bool DispatchEvent(const sf::Event& event);
@@ -41,6 +43,8 @@ namespace ly // Lightyear
 		sf::Clock m_TickClock;
 
 		shared<World> m_CurrentWorld;
+		shared<World> m_PendingWorld;
+
 		sf::Clock m_CleanCycleClock;
 		float m_CleanCycleInterval; // in seconds
 	};
@@ -49,8 +53,9 @@ namespace ly // Lightyear
 	weak<WorldType> Application::LoadWorld()
 	{
 		shared<WorldType> newWorld{ new WorldType{this} };
-		m_CurrentWorld = newWorld;
-		m_CurrentWorld->BeginPlayInternal();
+		m_PendingWorld = newWorld;
+		// dont call BeginPlayInternal() right away, wait for a bit
+		// m_PendingWorld->BeginPlayInternal();
 		return newWorld;
 	}
 }
