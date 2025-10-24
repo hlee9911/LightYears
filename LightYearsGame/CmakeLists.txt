@@ -65,6 +65,9 @@ add_executable(${LIGHT_YEARS_GAME_TARGET_NAME}
 	${CMAKE_CURRENT_SOURCE_DIR}/include/enemy/UFOStage.h
 	${CMAKE_CURRENT_SOURCE_DIR}/src/enemy/UFOStage.cpp
 
+	${CMAKE_CURRENT_SOURCE_DIR}/include/enemy/ChaosStage.h
+	${CMAKE_CURRENT_SOURCE_DIR}/src/enemy/ChaosStage.cpp
+
 	${CMAKE_CURRENT_SOURCE_DIR}/include/level/GameLevelOne.h
 	${CMAKE_CURRENT_SOURCE_DIR}/src/level/GameLevelOne.cpp
 

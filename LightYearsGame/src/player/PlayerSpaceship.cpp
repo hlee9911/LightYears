@@ -12,9 +12,22 @@ namespace ly
 		: Spaceship{ owningWorld, texturePath },
 		m_MoveInput{},
 		m_Speed{ 500.0f },
-		m_Shooter{ new BulletShooter{this, 0.1f, {50.0f, 0.0f}} }
+		m_Shooter{ new BulletShooter{this, 0.1f, {50.0f, 0.0f}} },
+		m_InvulnerableDuration{ 2.0f },
+		m_IsInvulnerable{ true },
+		m_InvulnerableBlinkInterval{ 0.5f },
+		m_InvulnerableBlinkTimer{ 0.0f },
+		m_InvulnerableBlinkDir{ 1.0f }
 	{
 		SetTeamID(1); // Player team ID is 1
+	}
+
+	void PlayerSpaceship::BeginPlay()
+	{
+		Spaceship::BeginPlay();
+
+		// make the player invulnerable for a short duration after spawning
+		TimerManager::Get().SetTimer(GetWeakRef(), &PlayerSpaceship::StopInvulnerable, m_InvulnerableDuration);
 	}
 
 	void PlayerSpaceship::Tick(float deltaTime)
@@ -23,6 +36,7 @@ namespace ly
 
 		HandleInput();
 		ConsumeInput(deltaTime);
+		UpdateInvulnerable(deltaTime);
 	}
 
 	void PlayerSpaceship::Shoot()
@@ -42,6 +56,14 @@ namespace ly
 		}
 
 		m_Shooter = std::move(newShooter);
+	}
+
+	void PlayerSpaceship::ApplyDamage(float damageAmt)
+	{
+		if (!m_IsInvulnerable)
+		{
+			Spaceship::ApplyDamage(damageAmt);
+		}
 	}
 
 	void PlayerSpaceship::HandleInput()
@@ -120,5 +142,29 @@ namespace ly
 	{
 		SetVelocity(m_MoveInput * GetSpeed());
 		m_MoveInput.x = m_MoveInput.y = 0.0f;
+	}
+
+	void PlayerSpaceship::StopInvulnerable()
+	{
+		GetSprite().setColor({255, 255, 255, 255}); // reset color
+		m_IsInvulnerable = false;
+	}
+
+	/// <summary>
+	/// This function updates the invulnerability blinking effect.
+	/// </summary>
+	/// <param name="deltaTime"></param>
+	void PlayerSpaceship::UpdateInvulnerable(float deltaTime)
+	{
+		if (!m_IsInvulnerable) return;
+		
+		m_InvulnerableBlinkTimer += deltaTime * m_InvulnerableBlinkDir;
+		// if we reached the end of the interval, reverse direction
+		if (m_InvulnerableBlinkTimer < 0 || m_InvulnerableBlinkTimer > m_InvulnerableBlinkInterval)
+		{
+			m_InvulnerableBlinkDir *= -1.0f; // reverse direction
+		}
+		// set the color based on the lerped value
+		GetSprite().setColor(LerpColor({ 255, 255, 255, 64 }, {255, 255, 255, 128}, m_InvulnerableBlinkTimer / m_InvulnerableBlinkInterval));
 	}
 }
