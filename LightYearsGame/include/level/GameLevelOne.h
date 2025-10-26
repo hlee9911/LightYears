@@ -15,10 +15,15 @@ namespace ly
 		GameLevelOne(Application* owningApp) noexcept;
 	
 	private:
+		virtual void AllGameStagesFinished() override;
 		virtual void BeginPlay() override;
 		// void TimerCallBack_Test(); // for debugging purpose
 		virtual void InitGameStages() override;
 		void PlayerSpaceshipDestroyed(Actor* destroyedPlayerSpaceship);
+		
+		void QuitGame();
+		void RestartGame();
+		
 		void GameOver();
 
 	private:

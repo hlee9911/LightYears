@@ -169,7 +169,7 @@ namespace ly
 		}
 		else
 		{
-			AllGameStageFinished();
+			AllGameStagesFinished();
 		}
 	}
 
@@ -184,7 +184,7 @@ namespace ly
 		}
 	}
 
-	void World::AllGameStageFinished()
+	void World::AllGameStagesFinished()
 	{
 		LOG("All Stages Finished");
 	}

@@ -47,7 +47,7 @@ namespace ly
 		void NextGameStage();
 		void StartStages();
 
-		virtual void AllGameStageFinished();
+		virtual void AllGameStagesFinished();
 
 	private:
 		Application* m_OwningApp;

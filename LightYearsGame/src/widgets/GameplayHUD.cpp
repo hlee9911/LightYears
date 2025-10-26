@@ -19,11 +19,21 @@ namespace ly
 		m_DangerHealthBarColor{ sf::Color{ 255, 0, 0, 255 } },
 		m_HealthWarningThreshold{ 0.7f },
 		m_HealthDangerThreshold{ 0.3f },
-		m_WidgetSpacing{ 10.0f }
+		m_WidgetSpacing{ 10.0f },
+		m_WinLoseText{ "" },
+		m_FinalScoreText{ "" },
+		m_RestartButton{ "Restart" },
+		m_QuitButton{ "Quit" }
 	{
 		m_FrameRateText.SetTextSize(25);
 		m_PlayerLivesText.SetTextSize(20);
 		m_PlayerScoreText.SetTextSize(20);
+
+		// hide end game widgets by default
+		m_WinLoseText.SetVisibility(false);
+		m_FinalScoreText.SetVisibility(false);
+		m_RestartButton.SetVisibility(false);
+		m_QuitButton.SetVisibility(false);
 	}
 
 	void GameplayHUD::Draw(sf::RenderWindow& windowRef)
@@ -34,6 +44,11 @@ namespace ly
 		m_PlayerLivesText.NativeDraw(windowRef);
 		m_PlayerScoreIcon.NativeDraw(windowRef);
 		m_PlayerScoreText.NativeDraw(windowRef);
+
+		m_WinLoseText.NativeDraw(windowRef);
+		m_FinalScoreText.NativeDraw(windowRef);
+		m_RestartButton.NativeDraw(windowRef);
+		m_QuitButton.NativeDraw(windowRef);
 	}
 
 	void GameplayHUD::Tick(float deltaTime)
@@ -45,7 +60,26 @@ namespace ly
 
 	bool GameplayHUD::HandleEvent(const sf::Event& event)
 	{
+		if (m_RestartButton.HandleEvent(event) || m_QuitButton.HandleEvent(event)) return true;
+
 		return HUD::HandleEvent(event);
+	}
+
+	void GameplayHUD::GameFinished(bool playerWon)
+	{
+		m_WinLoseText.SetVisibility(true);
+		m_FinalScoreText.SetVisibility(true);
+		m_RestartButton.SetVisibility(true);
+		m_QuitButton.SetVisibility(true);
+
+		if (playerWon)
+		{
+			m_WinLoseText.SetTextString("Victory!");
+		}
+		else
+		{
+			m_WinLoseText.SetTextString("Game Over!");
+		}
 	}
 
 	void GameplayHUD::Init(const sf::RenderWindow& windowRef)
@@ -73,6 +107,14 @@ namespace ly
 
 		RefreshHealthBar();
 		ConnectPlayerStatus();
+
+		m_WinLoseText.SetWidgetLocation({ windowSize.x / 2.0f - m_WinLoseText.GetBound().width / 2.0f, 100.0f });
+
+		m_RestartButton.SetWidgetLocation({ windowSize.x / 2.0f - m_RestartButton.GetBound().width / 2.0f, windowSize.y / 2.0f });
+		m_QuitButton.SetWidgetLocation(m_RestartButton.GetWidgetLocation() + sf::Vector2f{ 0.0f, 50.0f });
+
+		m_RestartButton.onButtonClicked.BindAction(GetWeakRef(), &GameplayHUD::RestartButtonClicked);
+		m_QuitButton.onButtonClicked.BindAction(GetWeakRef(), &GameplayHUD::QuitButtonClicked);
 	}
 
 	// Callback when player's health is updated
@@ -143,6 +185,16 @@ namespace ly
 	{
 		// when player's spaceship is destroyed, reset the health bar
 		RefreshHealthBar();
+	}
+
+	void GameplayHUD::RestartButtonClicked()
+	{
+		onRestartButtonClicked.Broadcast();
+	}
+
+	void GameplayHUD::QuitButtonClicked()
+	{
+		onQuitButtonClicked.Broadcast();
 	}
 
 	std::string GameplayHUD::FormatWithCommas(int value)

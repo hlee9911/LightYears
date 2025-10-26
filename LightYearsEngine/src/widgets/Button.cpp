@@ -24,6 +24,8 @@ namespace ly
 
 	bool Button::HandleEvent(const sf::Event& windowEvent)
 	{
+		if (!IsVisible()) return false;
+
 		bool handled = false;
 		if (windowEvent.type == sf::Event::MouseButtonReleased)
 		{
@@ -62,7 +64,6 @@ namespace ly
 				{
 					ButtonUp();
 				}
-				handled = true;
 			}
 		}
 		return handled || Widget::HandleEvent(windowEvent);
