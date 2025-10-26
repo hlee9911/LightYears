@@ -13,6 +13,7 @@ namespace ly
 		void ChangeHealth(float amt);
 		float GetHealth() const noexcept { return m_CurrentHealth; }
 		float GetMaxHealth() const noexcept { return m_MaxHealth; }
+		void SetInitialHealth(float health, float maxHealth) noexcept;
 
 		Delegate<float, float, float> onHealthChanged;
 		Delegate<float, float, float> onTakenDamage;

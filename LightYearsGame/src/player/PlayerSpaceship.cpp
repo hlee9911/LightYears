@@ -20,6 +20,7 @@ namespace ly
 		m_InvulnerableBlinkDir{ 1.0f }
 	{
 		SetTeamID(1); // Player team ID is 1
+		// m_Shooter->SetCurrentLevel(4);
 	}
 
 	void PlayerSpaceship::BeginPlay()

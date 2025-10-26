@@ -25,6 +25,18 @@ namespace ly
 		m_TopLevelShooterRight.IncrementLevel(amt);
 	}
 
+	void ThreeWayShooter::SetCurrentLevel(int level) noexcept
+	{
+		Shooter::SetCurrentLevel(level);
+
+		m_ShooterLeft.SetCurrentLevel(level);
+		m_ShooterMid.SetCurrentLevel(level);
+		m_ShooterRight.SetCurrentLevel(level);
+
+		m_TopLevelShooterLeft.SetCurrentLevel(level);
+		m_TopLevelShooterRight.SetCurrentLevel(level);
+	}
+
 	void ThreeWayShooter::ShootImpl()
 	{
 		m_ShooterLeft.Shoot();

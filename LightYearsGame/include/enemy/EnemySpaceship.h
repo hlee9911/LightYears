@@ -25,6 +25,7 @@ namespace ly
 
 		virtual void Tick(float deltaTime) override;
 		void SetScoreAwardAmount(unsigned int amount) noexcept { m_ScoreAwardAmt = amount; }
+		void SetRewardSpawnWeight(float weight) noexcept;
 
 	private:
 		void SpawnReward();

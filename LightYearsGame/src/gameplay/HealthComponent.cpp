@@ -37,6 +37,12 @@ namespace ly
 		}
 	}
 
+	void HealthComponent::SetInitialHealth(float health, float maxHealth) noexcept
+	{
+		m_CurrentHealth = health;
+		m_MaxHealth = maxHealth;
+	}
+
 	void HealthComponent::TakenDamange(float amt)
 	{
 		// LOG("Took Damage: %f, Current Health: %f/%f", amt, m_CurrentHealth, m_MaxHealth);

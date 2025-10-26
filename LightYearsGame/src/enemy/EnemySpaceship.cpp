@@ -24,6 +24,12 @@ namespace ly
 		}
 	}
 
+	void EnemySpaceship::SetRewardSpawnWeight(float weight) noexcept
+	{
+		if (weight < 0 || weight > 1) return;
+		m_RewardDropWeight = weight;
+	}
+
 	void EnemySpaceship::SpawnReward()
 	{
 		if (m_RewardFactories.size() == 0) return;

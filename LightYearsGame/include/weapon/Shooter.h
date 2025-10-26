@@ -19,6 +19,7 @@ namespace ly
 		int GetMaxLevel() const noexcept { return m_MaxLevel; }
 
 		virtual void IncrementLevel(int amt = 1);
+		virtual void SetCurrentLevel(int level) noexcept;
 
 	protected:
 		Shooter(Actor* owner) noexcept;

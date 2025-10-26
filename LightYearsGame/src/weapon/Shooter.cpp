@@ -16,6 +16,11 @@ namespace ly
 		++m_CurrentLevel;
 	}
 
+	void Shooter::SetCurrentLevel(int level) noexcept
+	{
+		m_CurrentLevel = level;
+	}
+
 	Shooter::Shooter(Actor* owner) noexcept
 		: m_Owner{ owner },
 		m_CurrentLevel{ 1 },

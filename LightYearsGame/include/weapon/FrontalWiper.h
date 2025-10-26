@@ -13,10 +13,11 @@ namespace ly
 	public:
 		FrontalWiper(Actor* owner, 
 			float cooldownTime = 0.5f,
-			const sf::Vector2f& localOffset = { 0.0f,0.0f },
+			const sf::Vector2f& localOffset = { 0.0f, 0.0f },
 			float width = 60.0f) noexcept;
 
 		virtual void IncrementLevel(int amt = 1) override;
+		virtual void SetCurrentLevel(int level) noexcept override;
 
 	private:
 		virtual void ShootImpl() override;
