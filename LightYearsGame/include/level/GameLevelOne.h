@@ -26,6 +26,8 @@ namespace ly
 		
 		void GameOver();
 
+		void SpawnCosmetics();
+
 	private:
 		weak<PlayerSpaceship> m_PlayerSpaceship;
 		weak<GameplayHUD> m_GameplayHUD;

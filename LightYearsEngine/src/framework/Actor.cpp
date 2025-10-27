@@ -200,6 +200,11 @@ namespace ly
 
 	}
 
+	void Actor::SetTextureRepeated(bool repeated)
+	{
+		m_Texture->setRepeated(repeated);
+	}
+
 	// make the pivot point the center of the sprite
 	void Actor::CenterPivot()
 	{

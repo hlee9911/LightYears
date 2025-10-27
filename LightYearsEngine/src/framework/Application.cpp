@@ -111,6 +111,7 @@ namespace ly
 		if (m_PendingWorld && m_PendingWorld != m_CurrentWorld)
 		{
 			m_CurrentWorld = m_PendingWorld;
+			PhysicsSystem::Get().Cleanup(); // clean up previous physics system and reset
 			m_CurrentWorld->BeginPlayInternal();
 		}
 	}

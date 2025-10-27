@@ -20,6 +20,7 @@ namespace ly
 		SetActorRotation(180.0f);
 		SetVelocity(sf::Vector2f{ m_Speed, 0.0f });
 		SetRewardSpawnWeight(0.0f); // Boss does not drop any reward
+		SetScoreAwardAmount(3000);
 	}
 
 	void Boss::BeginPlay()

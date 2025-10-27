@@ -59,7 +59,6 @@ namespace ly
 		static uint8 GetNeutralTeamID() noexcept { return neutralTeamID; }
 
 		void SetTeamID(uint8 newTeamID) noexcept { m_TeamID = newTeamID; }
-
 		uint8 GetTeamID() const noexcept { return m_TeamID; }
 		bool IsOtherHostile(Actor* other) const;
 
@@ -67,6 +66,8 @@ namespace ly
 
 		sf::Sprite& GetSprite() noexcept { return m_Sprite; }
 		const sf::Sprite& GetSprite() const noexcept { return m_Sprite; }
+
+		void SetTextureRepeated(bool repeated);
 
 		Delegate<Actor*> onActorDestroyed;
 

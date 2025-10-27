@@ -1,8 +1,9 @@
 #include "level/GameLevelOne.h"
 #include "framework/Actor.h"
 #include "framework/AssetManager.h"
-#include "framework/TimerManager.h"
 #include "framework/Application.h"
+#include "framework/BackdropActor.h"
+#include "framework/TimerManager.h"
 #include "player/PlayerSpaceship.h"
 #include "enemy/Vanguard.h"
 #include "enemy/VanguardStage.h"
@@ -26,9 +27,7 @@ namespace ly
 		: World{ owningApp },
 		m_TimerHandle_Test{}
 	{
-		// m_TestPlayerSpaceship = SpawnActor<PlayerSpaceship>();
-		// m_TestPlayerSpaceship.lock()->SetActorLocation(sf::Vector2f{ 300.0f, 490.0f });
-		// m_TestPlayerSpaceship.lock()->SetActorRotation(-90.0f);
+
 	}
 
 	void GameLevelOne::AllGameStagesFinished()
@@ -38,6 +37,8 @@ namespace ly
 
 	void GameLevelOne::BeginPlay()
 	{
+		SpawnCosmetics();
+
 		Player& newPlayer = PlayerManager::Get().CreateNewPlayer();
 		m_PlayerSpaceship = newPlayer.SpawnSpaceship(this);
 		m_PlayerSpaceship.lock()->onActorDestroyed.BindAction(GetWeakRef(), &GameLevelOne::PlayerSpaceshipDestroyed);
@@ -79,6 +80,7 @@ namespace ly
 
 	void GameLevelOne::RestartGame()
 	{
+		PlayerManager::Get().Reset();
 		GetOwningApplication()->LoadWorld<GameLevelOne>();
 	}
 
@@ -91,11 +93,13 @@ namespace ly
 		}
 	}
 
+	void GameLevelOne::SpawnCosmetics()
+	{
+		auto backdropActor = SpawnActor<BackdropActor>("SpaceShooterRedux/Backgrounds/darkPurple.png");
+	}
+
 	void GameLevelOne::InitGameStages()
 	{
-		AddStage(shared<WaitStage>{ new WaitStage{ this, 0.5f } });
-		AddStage(shared<ChaosStage>{ new ChaosStage{ this } });
-
 		AddStage(shared<WaitStage>{ new WaitStage{ this, 0.5f } });
 		AddStage(shared<VanguardStage>{ new VanguardStage{this} });
 
@@ -108,7 +112,10 @@ namespace ly
 		AddStage(shared<WaitStage>{ new WaitStage{ this, 4.0f } });
 		AddStage(shared<UFOStage>{ new UFOStage{ this } });
 
-		AddStage(shared<WaitStage>{ new WaitStage{ this, 8.0f } });
+		AddStage(shared<WaitStage>{ new WaitStage{ this, 0.5f } });
+		AddStage(shared<ChaosStage>{ new ChaosStage{ this } });
+
+		AddStage(shared<WaitStage>{ new WaitStage{ this, 2.0f } });
 		AddStage(shared<BossStage>{ new BossStage{ this } });
 	}
 }

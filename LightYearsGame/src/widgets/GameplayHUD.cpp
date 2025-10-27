@@ -1,5 +1,6 @@
 #include "widgets/GameplayHUD.h"
 #include "framework/Actor.h"
+#include "framework/World.h"
 #include "player/PlayerSpaceship.h"
 #include "player/PlayerManager.h"
 #include "player/Player.h"
@@ -23,7 +24,8 @@ namespace ly
 		m_WinLoseText{ "" },
 		m_FinalScoreText{ "" },
 		m_RestartButton{ "Restart" },
-		m_QuitButton{ "Quit" }
+		m_QuitButton{ "Quit" },
+		m_WindowSize{}
 	{
 		m_FrameRateText.SetTextSize(25);
 		m_PlayerLivesText.SetTextSize(20);
@@ -38,6 +40,8 @@ namespace ly
 
 	void GameplayHUD::Draw(sf::RenderWindow& windowRef)
 	{
+		m_WindowSize = windowRef.getSize();
+
 		m_FrameRateText.NativeDraw(windowRef);
 		m_PlayerHealthBar.NativeDraw(windowRef);
 		m_PlayerLifeIcon.NativeDraw(windowRef);
@@ -71,6 +75,10 @@ namespace ly
 		m_FinalScoreText.SetVisibility(true);
 		m_RestartButton.SetVisibility(true);
 		m_QuitButton.SetVisibility(true);
+		
+		int score = PlayerManager::Get().GetPlayer()->GetScore();
+		m_FinalScoreText.SetTextString("Score: " + std::to_string(score));
+		m_FinalScoreText.SetTextSize(40);
 
 		if (playerWon)
 		{
@@ -80,11 +88,14 @@ namespace ly
 		{
 			m_WinLoseText.SetTextString("Game Over!");
 		}
+		m_WinLoseText.SetWidgetLocation({ m_WindowSize.x / 2.0f - m_WinLoseText.GetBound().width / 2.0f, 100.0f });
+		m_FinalScoreText.SetWidgetLocation({ m_WindowSize.x / 2.0f - m_FinalScoreText.GetBound().width / 2.0f, 200.0f });
 	}
 
 	void GameplayHUD::Init(const sf::RenderWindow& windowRef)
 	{
 		auto windowSize = windowRef.getSize();
+		m_WindowSize = windowSize;
 		m_PlayerHealthBar.SetWidgetLocation(sf::Vector2f{ 20.0f, windowSize.y - 50.0f });
 		
 		sf::Vector2f nextWidgetPos = m_PlayerHealthBar.GetWidgetLocation();
@@ -108,7 +119,13 @@ namespace ly
 		RefreshHealthBar();
 		ConnectPlayerStatus();
 
+		m_WinLoseText.SetTextSize(40);
+		// m_WinLoseText.SetTextString("Victory!");
 		m_WinLoseText.SetWidgetLocation({ windowSize.x / 2.0f - m_WinLoseText.GetBound().width / 2.0f, 100.0f });
+		
+		// m_FinalScoreText.SetTextString("Score: " + std::to_string(10000));
+		m_FinalScoreText.SetTextSize(40);
+		m_FinalScoreText.SetWidgetLocation({ windowSize.x / 2.0f - m_FinalScoreText.GetBound().width / 2.0f, 200.0f });
 
 		m_RestartButton.SetWidgetLocation({ windowSize.x / 2.0f - m_RestartButton.GetBound().width / 2.0f, windowSize.y / 2.0f });
 		m_QuitButton.SetWidgetLocation(m_RestartButton.GetWidgetLocation() + sf::Vector2f{ 0.0f, 50.0f });
