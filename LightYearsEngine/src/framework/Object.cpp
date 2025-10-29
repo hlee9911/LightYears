@@ -28,11 +28,13 @@ namespace ly
 	weak<Object> Object::GetWeakRef() noexcept
 	{
 		return weak_from_this();
+		// return shared_from_this();
 	}
 
 	weak<const Object> Object::GetWeakRef() const noexcept
 	{
 		return weak_from_this();
+		// return shared_from_this();
 	}
 
 	unsigned int Object::GetNexAvailableID() noexcept

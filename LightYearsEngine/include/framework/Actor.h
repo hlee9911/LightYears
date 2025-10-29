@@ -29,7 +29,7 @@ namespace ly
 		virtual void Destroy() override;
 
 		void SetTexture(const std::string& texturePath);
-		void Render(sf::RenderWindow& window);
+		virtual void Render(sf::RenderWindow& window);
 
 		// Transformations
 		void SetActorLocation(const sf::Vector2f& newLoc);

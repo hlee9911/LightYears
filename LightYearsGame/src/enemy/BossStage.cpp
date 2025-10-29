@@ -1,6 +1,7 @@
 #include "enemy/BossStage.h"
 #include "enemy/Boss.h"
 #include "framework/World.h"
+#include "weapon/BulletShooter.h"
 
 namespace ly
 {

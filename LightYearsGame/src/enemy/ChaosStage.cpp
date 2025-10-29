@@ -5,6 +5,7 @@
 #include "enemy/UFO.h"
 #include "framework/World.h"
 #include "framework/MathUtility.h"
+#include "weapon/BulletShooter.h"
 
 namespace ly
 {

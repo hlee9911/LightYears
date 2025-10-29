@@ -13,7 +13,7 @@ namespace ly
 	public:
 		BackdropActor(World* owningWorld, 
 			const std::string& texturePath, 
-			const sf::Vector2f& velocity = sf::Vector2f{0.0f, -100.0f}) noexcept;
+			const sf::Vector2f& velocity = sf::Vector2f{0.0f, -125.0f}) noexcept;
 
 		virtual void Tick(float deltaTime) override;
 

@@ -170,7 +170,7 @@ namespace ly
 		}
 		else if (!m_PhysicsEnabled)
 		{
-			InitializePhysics();
+			UnInitializePhysics();
 		}
 	}
 
@@ -227,6 +227,9 @@ namespace ly
 		if (m_PhysicsBody)
 		{
 			PhysicsSystem::Get().RemoveListener(m_PhysicsBody);
+			// making sure to have the fixture to be the nullptr in case we contact with the object
+			// that is already that has been already destroyed but fixture body is still not nullptr
+			m_PhysicsBody->GetUserData().pointer = reinterpret_cast<uintptr_t>(nullptr);
 			m_PhysicsBody = nullptr;
 		}
 	}
