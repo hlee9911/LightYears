@@ -1,6 +1,4 @@
 #pragma once
-#ifndef MAINMENULEVEL_H
-#define MAINMENULEVEL_H
 
 #include "framework/World.h"
 
@@ -22,5 +20,3 @@ namespace ly
 		weak<MainMenuHUD> m_MainMenuHUD;
 	};
 }
-
-#endif // MAINMENULEVEL_H

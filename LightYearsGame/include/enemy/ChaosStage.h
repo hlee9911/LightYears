@@ -1,6 +1,4 @@
 #pragma once
-#ifndef CHAOSSTAGE_H
-#define CHAOSSTAGE_H
 
 #include <SFML/Graphics.hpp>
 
@@ -43,5 +41,3 @@ namespace ly
 		TimerHandle m_SpawnTimerHandle;
 	};
 }
-
-#endif // CHAOSSTAGE_H

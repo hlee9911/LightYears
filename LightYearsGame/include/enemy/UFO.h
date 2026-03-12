@@ -1,6 +1,4 @@
 #pragma once
-#ifndef UFO_H
-#define UFO_H
 
 #include "enemy/EnemySpaceship.h"
 
@@ -24,5 +22,3 @@ namespace ly
 
 	};
 }
-
-#endif // UFO_H

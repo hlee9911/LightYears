@@ -1,6 +1,4 @@
 #pragma once
-#ifndef ACTOR_H
-#define ACTOR_H
 
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -94,5 +92,3 @@ namespace ly
 		constexpr static uint8 neutralTeamID = 255;
 	};
 }
-
-#endif // ACTOR_H

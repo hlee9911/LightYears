@@ -1,6 +1,4 @@
 #pragma once
-#ifndef VANGUARD_H
-#define	VANGUARD_H
 
 #include "enemy/EnemySpaceship.h"
 
@@ -20,6 +18,3 @@ namespace ly
 		unique<BulletShooter> m_Shooter;
 	};
 }
-
-
-#endif // VANGUARD_H

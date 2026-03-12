@@ -1,6 +1,4 @@
 #pragma once
-#ifndef TWINBLADE_H
-#define TWINBLADE_H
 
 #include "enemy/EnemySpaceship.h"
 
@@ -23,5 +21,3 @@ namespace ly
 		unique<BulletShooter> m_ShooterRight;
 	};
 }
-
-#endif //TWINBLADE_H

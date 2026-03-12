@@ -1,6 +1,4 @@
 #pragma once
-#ifndef BUTTON_H
-#define BUTTON_H
 
 #include "widgets/Widget.h"
 #include "framework/Delegate.h"
@@ -48,5 +46,3 @@ namespace ly
 		bool m_IsButtonDown;
 	};
 }
-
-#endif // BUTTON_H

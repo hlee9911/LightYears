@@ -1,6 +1,4 @@
 #pragma once
-#ifndef PHYSICSSYSTEM_H
-#define PHYSICSSYSTEM_H
 
 #include <box2d/b2_world.h>
 
@@ -46,5 +44,3 @@ namespace ly
 		Set<b2Body*> m_PendingRemoveListeners;
 	};
 }
-
-#endif // PHYSICSSYSTEM_H

@@ -1,6 +1,4 @@
 #pragma once
-#ifndef APPLICATION_H
-#define APPLICATION_H
 
 #include <string>
 #include <SFML/Graphics.hpp>
@@ -59,5 +57,3 @@ namespace ly // Lightyear
 		return newWorld;
 	}
 }
-
-#endif // Application.h

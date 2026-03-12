@@ -1,6 +1,4 @@
 #pragma once
-#ifndef ASSETMANAGER_H
-#define ASSETMANAGER_H
 
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -78,5 +76,3 @@ namespace ly
 		}
 	}
 }
-
-#endif // ASSETMANAGER_H

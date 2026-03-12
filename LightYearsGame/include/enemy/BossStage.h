@@ -1,6 +1,4 @@
 #pragma once
-#ifndef BOSSSTAGE_H
-#define BOSSSTAGE_H
 
 #include "gameplay/GameStage.h"
 
@@ -19,5 +17,3 @@ namespace ly
 
 	};
 }
-
-#endif // BOSSSTAGE_H

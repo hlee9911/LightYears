@@ -1,6 +1,4 @@
 #pragma once
-#ifndef MAINMENUHUD_H
-#define MAINMENUHUD_H
 
 #include "widgets/HUD.h"
 #include "widgets/Button.h"
@@ -30,5 +28,3 @@ namespace ly
 		Button m_QuitButton;
 	};
 }
-
-#endif // MAINMENUHUD_H

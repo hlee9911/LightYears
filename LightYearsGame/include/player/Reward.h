@@ -1,6 +1,4 @@
 #pragma once
-#ifndef REWARD_H
-#define REWARD_H
 
 #include "framework/Actor.h"
 
@@ -42,5 +40,3 @@ namespace ly
 	void RewardFrontalWiper(PlayerSpaceship* player);
 	void RewardLifeUp(PlayerSpaceship* player);
 }
-
-#endif // REWARD_H

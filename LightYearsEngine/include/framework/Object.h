@@ -1,6 +1,4 @@
 #pragma once
-#ifndef OBJECT_H
-#define OBJECT_H
 
 #include <memory>
 
@@ -35,5 +33,3 @@ namespace ly
 		static unsigned int GetNexAvailableID() noexcept;
 	};
 }
-
-#endif // OBJECT_H

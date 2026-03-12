@@ -1,6 +1,4 @@
 #pragma once
-#ifndef TEXTWIDGET_H
-#define TEXTWIDGET_H
 
 #include "framework/Core.h"
 #include "widgets/Widget.h"
@@ -32,5 +30,3 @@ namespace ly
 
 	};
 }
-
-#endif // TEXTWIDGET_H

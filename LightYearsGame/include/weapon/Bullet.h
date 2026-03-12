@@ -1,6 +1,4 @@
 #pragma once
-#ifndef BULLET_H
-#define BULLET_H
 
 #include <string>
 
@@ -31,5 +29,3 @@ namespace ly
 		float m_Damage;
 	};
 }
-
-#endif // BULLET_H

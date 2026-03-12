@@ -1,6 +1,4 @@
 #pragma once
-#ifndef UFOSTAGE_H
-#define UFOSTAGE_H
 
 #include <SFML/Graphics.hpp>
 
@@ -30,5 +28,3 @@ namespace ly
 		TimerHandle m_SpawnTimerHandle;
 	};
 }
-
-#endif // UFOSTAGE_H

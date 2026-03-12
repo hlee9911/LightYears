@@ -1,6 +1,4 @@
 #pragma once
-#ifndef GAMELEVELONE_H
-#define GAMELEVELONE_H
 
 #include "framework/World.h"
 #include "framework/TimerManager.h"
@@ -34,5 +32,3 @@ namespace ly
 		TimerHandle m_TimerHandle_Test;
 	};
 }
-
-#endif // GAMELEVELONE_H

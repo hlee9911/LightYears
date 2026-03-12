@@ -1,6 +1,4 @@
 #pragma once
-#ifndef BULLETSHOOTER_H
-#define BULLETSHOOTER_H
 
 #include <SFML/System.hpp>
 #include <string>
@@ -35,5 +33,3 @@ namespace ly
 		std::string m_BulletTexturePath;
 	};
 }
-
-#endif // BULLETSHOOTER_H

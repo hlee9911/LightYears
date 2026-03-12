@@ -1,6 +1,4 @@
 #pragma once
-#ifndef GAMEPLAYHUD_H
-#define GAMEPLAYHUD_H
 
 #include "widgets/HUD.h"
 #include "widgets/TextWidget.h"
@@ -68,5 +66,3 @@ namespace ly
 		sf::Vector2u m_WindowSize;
 	};
 }
-
-#endif // GAMEPLAYHUD_H

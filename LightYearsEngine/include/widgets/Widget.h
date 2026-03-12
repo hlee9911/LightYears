@@ -1,6 +1,4 @@
 #pragma once
-#ifndef WIDGET_H
-#define WIDGET_H
 
 #include "framework/Object.h"
 
@@ -41,5 +39,3 @@ namespace ly
 
 	};
 }
-
-#endif // WIDGET_H

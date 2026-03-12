@@ -1,6 +1,4 @@
 #pragma once
-#ifndef VALUEGUAGE_H
-#define VALUEGUAGE_H
 
 #include "widgets/Widget.h"
 
@@ -42,5 +40,3 @@ namespace ly
 		float m_Percent;
 	};
 }
-
-#endif // VALUEGUAGE_H

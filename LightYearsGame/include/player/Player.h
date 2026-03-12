@@ -1,6 +1,4 @@
 #pragma once
-#ifndef PLAYER_H
-#define PLAYER_H
 
 #include "framework/Object.h"
 #include "framework/Delegate.h"
@@ -33,5 +31,3 @@ namespace ly
 		weak<PlayerSpaceship> m_CurrentPlayerSpaceship;
 	};
 }
-
-#endif // PLAYER_H

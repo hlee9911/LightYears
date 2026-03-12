@@ -1,6 +1,4 @@
 #pragma once
-#ifndef HEXAGONSTAGE_H
-#define HEXAGONSTAGE_H
 
 #include <SFML/Graphics.hpp>
 
@@ -34,5 +32,3 @@ namespace ly
 		TimerHandle m_SpawnTimerHandle;
 	};
 }
-
-#endif //HEXAGONSTAGE_H

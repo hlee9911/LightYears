@@ -1,6 +1,4 @@
 #pragma once
-#ifndef BOSS_H
-#define BOSS_H
 
 #include "enemy/EnemySpaceship.h"
 #include "weapon/BulletShooter.h"
@@ -49,5 +47,3 @@ namespace ly
 		int m_Stage;
 	};
 }
-
-#endif // BOSS_H

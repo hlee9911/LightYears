@@ -1,6 +1,4 @@
 #pragma once
-#ifndef WAITSTAGE_H
-#define WAITSTAGE_H
 
 #include "gameplay/GameStage.h"
 
@@ -18,5 +16,3 @@ namespace ly
 
 	};
 }
-
-#endif // WAITSTAGE_H

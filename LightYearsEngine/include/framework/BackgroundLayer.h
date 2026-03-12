@@ -1,6 +1,4 @@
 #pragma once
-#ifndef BACKGROUNDLAYER_H
-#define BACKGROUNDLAYER_H
 
 #include "framework/Actor.h"
 
@@ -60,5 +58,3 @@ namespace ly
 		List<sf::Vector2f> m_Velocities;
 	};
 }
-
-#endif // BACKGROUNDLAYER_H

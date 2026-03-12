@@ -1,6 +1,4 @@
 #pragma once
-#ifndef TWINBLADESTAGE_H
-#define TWINBLADESTAGE_H
 
 #include <SFML/Graphics.hpp>
 
@@ -34,5 +32,3 @@ namespace ly
 		int m_CurrentSpawnCount;
 	};
 }
-
-#endif // TWINBLADESTAGE_H

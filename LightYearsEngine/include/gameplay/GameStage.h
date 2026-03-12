@@ -1,6 +1,4 @@
 #pragma once
-#ifndef GAMESTAGE_H
-#define GAMESTAGE_H
 
 #include "framework/Object.h"
 #include "framework/Delegate.h"
@@ -31,5 +29,3 @@ namespace ly
 		bool m_StageFinished;
 	};
 }
-
-#endif // GAMESTAGE_H

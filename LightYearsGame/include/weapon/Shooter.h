@@ -1,6 +1,4 @@
 #pragma once
-#ifndef SHOOTER_H
-#define SHOOTER_H
 
 namespace ly
 {
@@ -34,5 +32,3 @@ namespace ly
 		int m_MaxLevel;
 	};
 }
-
-#endif // SHOOTER_H

@@ -1,6 +1,4 @@
 #pragma once
-#ifndef FRONTALWIPER_H
-#define FRONTALWIPER_H
 
 #include <SFML/System.hpp>
 
@@ -34,5 +32,3 @@ namespace ly
 		float m_Width;
 	};
 }
-
-#endif // FRONTALWIPER_H

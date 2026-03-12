@@ -1,6 +1,4 @@
 #pragma once
-#ifndef WORLD_H
-#define WORLD_H
 
 #include <SFML/Graphics.hpp>
 
@@ -82,5 +80,3 @@ namespace ly
 		return newHUD;
 	}
 }
-
-#endif // WORLD_H

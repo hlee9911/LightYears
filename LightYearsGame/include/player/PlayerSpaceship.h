@@ -1,6 +1,4 @@
 #pragma once
-#ifndef PLAYERSPACESHIP_H
-#define PLAYERSPACESHIP_H
 
 #include "spaceship/Spaceship.h"
 #include "framework/TimerManager.h"
@@ -48,5 +46,3 @@ namespace ly
 		float m_InvulnerableBlinkDir; // reflashing to a darker color or normal color
 	};
 }
-
-#endif // PLAYERSPACESHIP_H

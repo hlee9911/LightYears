@@ -1,6 +1,4 @@
 #pragma once
-#ifndef TIMERMANAGER_H
-#define TIMERMANAGER_H
 
 #include "framework/Core.h"
 #include "framework/Object.h"
@@ -80,5 +78,3 @@ namespace ly
 		Dictionary<TimerHandle, Timer, TimerHandleHashFunction> m_Timers;
 	};
 }
-
-#endif // TIMERMANAGER_H

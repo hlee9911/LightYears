@@ -1,6 +1,4 @@
 #pragma once
-#ifndef IMAGEWIDGET_H
-#define IMAGEWIDGET_H
 
 #include <SFML/Graphics.hpp>
 
@@ -28,5 +26,3 @@ namespace ly
 
 	};
 }
-
-#endif // IMAGEWIDGET_H

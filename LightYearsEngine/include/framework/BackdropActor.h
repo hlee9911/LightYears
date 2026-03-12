@@ -1,6 +1,4 @@
 #pragma once
-#ifndef BACKDROPACTOR_H
-#define BACKDROPACTOR_H
 
 #include "framework/Actor.h"
 
@@ -23,5 +21,3 @@ namespace ly
 		float m_TopShift;
 	};
 }
-
-#endif // BACKDROPACTOR_H

@@ -1,6 +1,4 @@
 #pragma once
-#ifndef ENEMYSPACESHIP_H
-#define ENEMYSPACESHIP_H
 
 #include "spaceship/Spaceship.h"
 #include "player/Reward.h"
@@ -39,5 +37,3 @@ namespace ly
 		float m_RewardDropWeight;
 	};
 }
-
-#endif // ENEMYSPACESHIP_H

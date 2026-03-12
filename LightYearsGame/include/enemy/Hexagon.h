@@ -1,6 +1,4 @@
 #pragma once
-#ifndef HEXAGON_H
-#define HEXAGON_H
 
 #include "enemy/EnemySpaceship.h"
 
@@ -25,5 +23,3 @@ namespace ly
 		unique<BulletShooter> m_Shooter5;
 	};
 }
-
-#endif // HEXAGON_H

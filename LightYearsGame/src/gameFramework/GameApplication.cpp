@@ -12,17 +12,11 @@ ly::Application* GetApplication()
 namespace ly
 {
 	GameApplication::GameApplication() noexcept
-		: Application{ 600, 980, "Light Years", sf::Style::Titlebar | sf::Style::Close}
+		: Application{ 600, 980, "2D Bullet Hell", sf::Style::Titlebar | sf::Style::Close}
 	{
 		// Set the asset root directory for the AssetManager
 		AssetManager::Get().SetAssetRootDirectory(GetResourceDir());
-		// weak<GameLevelOne> newLevelOne = LoadWorld<GameLevelOne>();
 
 		weak<MainMenuLevel> newLevelOne = LoadWorld<MainMenuLevel>();
 	}
-
-	//void GameApplication::Tick(float deltaTime)
-	//{
-
-	//}
 }

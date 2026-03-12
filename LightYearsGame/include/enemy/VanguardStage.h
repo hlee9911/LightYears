@@ -1,6 +1,4 @@
 #pragma once
-#ifndef VANGUARDSTAGE_H
-#define VANGUARDSTAGE_H
 
 #include <SFML/Graphics.hpp>
 
@@ -40,5 +38,3 @@ namespace ly
 		int m_CurrentRowVanguardCount;
 	};
 }
-
-#endif // VANGUARDSTAGE_H

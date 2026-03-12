@@ -1,6 +1,4 @@
 #pragma once
-#ifndef GAMEAPPLICATION_H
-#define GAMEAPPLICATION_H
 
 #include <framework/Application.h>
 #include <framework/Core.h>
@@ -15,5 +13,3 @@ namespace ly
 		// virtual void Tick(float deltaTime) override;
 	};
 }
-
-#endif // GAMEAPPLICATION_H

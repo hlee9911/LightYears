@@ -1,6 +1,4 @@
 #pragma once
-#ifndef THREEWAYSHOOTER_H
-#define THREEWAYSHOOTER_H
 
 // #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -30,5 +28,3 @@ namespace ly
 		BulletShooter m_TopLevelShooterRight;
 	};
 }
-
-#endif //THREEWAYSHOOTER_H

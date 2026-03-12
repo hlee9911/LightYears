@@ -1,6 +1,4 @@
 #pragma once
-#ifndef PLAYERMANAGER_H
-#define PLAYERMANAGER_H
 
 #include "framework/Core.h"
 #include "player/Player.h"
@@ -27,5 +25,3 @@ namespace ly
 		static unique<PlayerManager> s_PlayerManager;
 	};
 }
-
-#endif // PLAYERMANAGER_H

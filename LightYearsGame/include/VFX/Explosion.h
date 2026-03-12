@@ -1,6 +1,4 @@
 #pragma once
-#ifndef EXPLOSION_H
-#define EXPLOSION_H
 
 #include <string>
 #include <SFML/Graphics.hpp>
@@ -47,5 +45,3 @@ namespace ly
 		List<std::string> m_ParticleImagePaths;
 	};
 }
-
-#endif // EXPLOSION_H

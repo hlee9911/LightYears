@@ -1,6 +1,4 @@
 #pragma once
-#ifndef SPACESHIP_H
-#define SPACESHIP_H
 
 #include <string>
 
@@ -44,5 +42,3 @@ namespace ly
 		sf::Color m_BlinkColorOffset;
 	};
 }
-
-#endif // SPACESHIP_H
