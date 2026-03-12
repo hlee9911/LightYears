@@ -1,5 +1,52 @@
-# LightYears
-A 2D bullet-hell scrolling shooter spaceship fighting game made with **C++**, **SFML**, **CMake**, and **Box2D**.
+# C++ SFML 2D Engine
+
+A small 2D game engine written in C++ using SFML.  
+This project explores core game engine architecture concepts such as game loops, scene management, rendering, and component-based GameObjects.
+
+The engine includes a playable 2D scrolling spaceship bullet-hell prototype used to test gameplay systems and engine features.
+
+## Features
+
+- Component-based GameObject system
+- Scene management
+- Real-time rendering with SFML
+- Input handling
+- Basic 2D physics and collision
+- Bullet hell gameplay prototype
+- Resource management for textures and assets
+
+## Tech Stack
+
+- C++
+- SFML
+- CMake
+
+## Architecture
+
+The engine follows a component-based architecture similar to modern game engines.
+
+Key systems include:
+
+- **Application Layer** – manages the main loop and lifecycle
+- **Scene System** – manages GameObjects and components
+- **Rendering System** – handles sprite rendering and drawing
+- **Input System** – processes keyboard input
+- **Gameplay Layer** – bullet hell demo built on top of the engine
+
+## Building
+
+Requirements:
+
+- C++14 compatible compiler
+- CMake
+- SFML
+
+Build steps:
+
+mkdir build
+cd build
+cmake ..
+cmake -S .. -B .
 
 ---
 
