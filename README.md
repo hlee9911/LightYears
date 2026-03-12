@@ -43,16 +43,17 @@ Requirements:
 
 Build steps:
 
+```plaintext
 mkdir build
 cd build
 cmake ..
 cmake -S .. -B .
+```
 
----
 
 ## To fix linking error after making a visual studio build
 
-1. In Visual Studio, right-click **LightYearsGame Project** in the **Solution Explorer**.
+1. In Visual Studio, right-click **Project** in the **Solution Explorer**.
 2. Go to: Properties -> Linker -> Input -> Additional Dependencies
 3. Copy and Paste the following libraries:
 ```plaintext
@@ -72,3 +73,5 @@ oleaut32.lib
 uuid.lib
 comdlg32.lib
 advapi32.lib
+```
+4. Retry building
